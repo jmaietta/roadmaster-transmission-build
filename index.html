@@ -1,76 +1,95 @@
-
 html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Detailed build plan for a 2001-style, 300 mm GM 4L60E transmission for an LS-swapped Buick Roadmaster.">
-  <meta name="theme-color" content="#111827">
-  <title>Roadmaster 4L60E Transmission Build Plan</title>
+  <meta name="description" content="Detailed 1994 Buick Roadmaster Estate Wagon 4L60-E transmission rebuild plan for the LT1 drivetrain.">
+  <meta name="theme-color" content="#5a2432">
+  <title>1994 Buick Roadmaster Estate Wagon — 4L60-E Rebuild Plan</title>
 
   <style>
     :root {
-      --bg: #0b1020;
-      --panel: #111827;
-      --panel-2: #182235;
-      --text: #edf2f7;
-      --muted: #a7b2c3;
-      --line: #2b3a52;
-      --accent: #d6a648;
-      --accent-2: #f4d58d;
-      --good: #67c587;
-      --warn: #f1bd5b;
-      --danger: #f47b7b;
-      --link: #83c5ff;
+      --paper: #f4f0e7;
+      --paper-deep: #e9e1d4;
+      --white: #fffdf8;
+      --ink: #242321;
+      --muted: #625f59;
+      --burgundy: #5a2432;
+      --burgundy-dark: #39151f;
+      --burgundy-soft: #eadde0;
+      --wood: #765033;
+      --wood-dark: #4d3322;
+      --gold: #b28a48;
+      --chrome: #b8b8b4;
+      --line: #cfc7ba;
+      --line-dark: #9d9589;
+      --green: #496f57;
+      --green-soft: #e2ebe3;
+      --amber: #916321;
+      --amber-soft: #f4e8cf;
+      --red: #8b3535;
+      --red-soft: #f1dddd;
+      --blue: #315c79;
+      --blue-soft: #dfeaf0;
+      --shadow: 0 14px 38px rgba(56, 44, 34, .10);
       --max: 1180px;
-      --radius: 15px;
-      --shadow: 0 18px 50px rgba(0, 0, 0, .24);
     }
 
     * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 78px;
+      scroll-padding-top: 92px;
     }
 
     body {
       margin: 0;
-      color: var(--text);
+      color: var(--ink);
       background:
-        radial-gradient(circle at 18% 0%, rgba(214, 166, 72, .12), transparent 30rem),
-        linear-gradient(180deg, #090e1a 0%, var(--bg) 100%);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
+        linear-gradient(rgba(255,255,255,.42), rgba(255,255,255,.42)),
+        repeating-linear-gradient(
+          90deg,
+          #eee8dd 0,
+          #eee8dd 48px,
+          #ece4d8 48px,
+          #ece4d8 96px
+        );
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.62;
     }
 
     a {
-      color: var(--link);
+      color: var(--burgundy);
+      text-decoration-thickness: 1px;
       text-underline-offset: 3px;
     }
 
-    a:hover { color: #b9e1ff; }
+    a:hover { color: var(--burgundy-dark); }
 
-    code {
-      padding: .08rem .34rem;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #0a1221;
-      color: var(--accent-2);
+    button,
+    input,
+    textarea {
+      font: inherit;
     }
 
-    .site-header {
+    .sans {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 50;
-      border-bottom: 1px solid rgba(255,255,255,.09);
-      background: rgba(9, 14, 26, .9);
-      backdrop-filter: blur(16px);
+      z-index: 100;
+      border-bottom: 1px solid #3d1c24;
+      background: rgba(74, 27, 39, .97);
+      color: #fff;
+      box-shadow: 0 5px 18px rgba(40, 17, 22, .18);
+      backdrop-filter: blur(10px);
     }
 
-    .header-inner {
-      width: min(var(--max), calc(100% - 32px));
-      min-height: 66px;
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 28px));
+      min-height: 68px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -82,1369 +101,1846 @@ html = r'''<!DOCTYPE html>
       display: flex;
       align-items: center;
       gap: 11px;
-      color: var(--text);
+      min-width: 0;
+      color: #fff;
       text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
       font-weight: 800;
       letter-spacing: .015em;
     }
 
     .brand-mark {
-      width: 34px;
-      height: 34px;
+      width: 39px;
+      height: 39px;
       display: grid;
       place-items: center;
-      border: 1px solid #6e5725;
-      border-radius: 9px;
-      background: linear-gradient(145deg, #f0c86e, #a8731b);
-      color: #131820;
-      font-size: .8rem;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 28%, #f8f6ef 0 8%, transparent 9%),
+        linear-gradient(145deg, #d9d6cc, #8d8d89);
+      color: var(--burgundy-dark);
+      box-shadow:
+        inset 0 0 0 3px rgba(255,255,255,.32),
+        0 2px 8px rgba(0,0,0,.22);
+      font-size: .69rem;
+      letter-spacing: -.03em;
     }
 
-    .header-actions {
+    .brand span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .top-actions {
       display: flex;
-      align-items: center;
-      gap: 9px;
+      gap: 8px;
+      flex: 0 0 auto;
     }
 
-    button, .button {
+    button,
+    .button {
       appearance: none;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      background: #151f30;
-      color: var(--text);
-      padding: .62rem .84rem;
-      font: inherit;
-      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 5px;
+      background: rgba(255,255,255,.10);
+      color: #fff;
+      padding: .55rem .78rem;
       cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
       text-decoration: none;
     }
 
-    button:hover, .button:hover {
-      border-color: #536984;
-      background: #1b293e;
+    button:hover,
+    .button:hover {
+      background: rgba(255,255,255,.18);
       color: #fff;
     }
 
-    .button.primary {
-      border-color: #8a6926;
-      background: linear-gradient(145deg, #d6a648, #b57e21);
-      color: #111827;
-    }
-
-    .hero {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 42px auto 24px;
-      padding: clamp(28px, 6vw, 68px);
-      overflow: hidden;
-      position: relative;
-      border: 1px solid #3b4455;
-      border-radius: 24px;
-      background:
-        linear-gradient(120deg, rgba(214,166,72,.14), transparent 48%),
-        linear-gradient(145deg, #151d2b, #0d1422);
+    .page {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 28px auto 50px;
+      border: 1px solid var(--line-dark);
+      background: var(--paper);
       box-shadow: var(--shadow);
     }
 
-    .hero::after {
-      content: "4L60E";
+    .wood-strip {
+      height: 14px;
+      border-bottom: 1px solid #4b2e1c;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.09), transparent 25%, rgba(0,0,0,.11) 57%, transparent 79%),
+        repeating-linear-gradient(
+          4deg,
+          #69452c 0,
+          #69452c 6px,
+          #805a3a 7px,
+          #805a3a 12px,
+          #5c3c28 13px,
+          #5c3c28 18px
+        );
+    }
+
+    .masthead {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(34px, 7vw, 76px);
+      border-bottom: 1px solid var(--line-dark);
+      background:
+        linear-gradient(90deg, rgba(255,253,248,.98) 0%, rgba(255,253,248,.93) 58%, rgba(255,253,248,.72) 100%),
+        url("https://jmaietta.github.io/roadmaster/images/4l60e/page-008.jpg") center right / auto 112% no-repeat;
+    }
+
+    .masthead::after {
+      content: "";
       position: absolute;
-      right: -18px;
-      bottom: -55px;
-      color: rgba(255,255,255,.035);
-      font-size: clamp(7rem, 20vw, 15rem);
-      font-weight: 900;
-      letter-spacing: -.08em;
-      line-height: 1;
+      top: 0;
+      right: 0;
+      width: 38%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--white), transparent 50%);
       pointer-events: none;
     }
 
-    .eyebrow {
+    .masthead-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 790px;
+    }
+
+    .kicker {
       margin: 0 0 12px;
-      color: var(--accent-2);
-      font-size: .82rem;
-      font-weight: 850;
-      letter-spacing: .14em;
+      color: var(--burgundy);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .8rem;
+      font-weight: 900;
+      letter-spacing: .18em;
       text-transform: uppercase;
     }
 
-    h1, h2, h3 {
-      line-height: 1.18;
-      letter-spacing: -.02em;
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: var(--burgundy-dark);
+      line-height: 1.17;
     }
 
     h1 {
-      max-width: 830px;
       margin: 0;
-      font-size: clamp(2.35rem, 6vw, 5rem);
+      font-size: clamp(2.5rem, 6vw, 5.1rem);
+      letter-spacing: -.035em;
     }
 
-    .hero-copy {
-      max-width: 790px;
-      margin: 20px 0 0;
-      color: #c6cfdb;
-      font-size: clamp(1.03rem, 2vw, 1.22rem);
+    .subtitle {
+      max-width: 720px;
+      margin: 19px 0 0;
+      color: #4d4943;
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
     }
 
-    .hero-meta {
+    .identity-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 26px;
+      gap: 8px;
+      margin-top: 25px;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    .pill {
-      border: 1px solid #3d4a60;
-      border-radius: 999px;
-      background: rgba(10,18,33,.76);
-      color: #dce4ef;
-      padding: .43rem .72rem;
-      font-size: .88rem;
-      font-weight: 700;
+    .identity-tag {
+      border: 1px solid #a79486;
+      border-radius: 3px;
+      background: rgba(255,255,255,.78);
+      color: #413a34;
+      padding: .36rem .56rem;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .025em;
     }
 
-    .layout {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto 70px;
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .toc {
-      position: sticky;
-      top: 88px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(17, 24, 39, .84);
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .toc h2 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-    }
-
-    .toc a {
-      display: block;
-      padding: .42rem .5rem;
-      border-radius: 7px;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: .92rem;
-    }
-
-    .toc a:hover {
-      background: #1b2638;
+    .identity-tag.primary {
+      border-color: var(--burgundy);
+      background: var(--burgundy);
       color: #fff;
     }
 
-    .progress-wrap {
-      margin-top: 16px;
-      padding-top: 15px;
-      border-top: 1px solid var(--line);
+    .source-rule {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
     }
 
-    .progress-label {
+    .source-rule > div {
+      padding: 19px 24px;
+      border-right: 1px solid var(--line);
+    }
+
+    .source-rule > div:last-child { border-right: 0; }
+
+    .source-rule strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--burgundy-dark);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .source-rule span {
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .content-shell {
+      display: grid;
+      grid-template-columns: 252px minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 86px;
+      max-height: calc(100vh - 105px);
+      overflow: auto;
+      padding: 25px 20px 28px;
+      border-right: 1px solid var(--line);
+      background: #eee7db;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .side-nav h2 {
+      margin: 0 0 11px;
+      font-size: .82rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .side-nav a {
+      display: block;
+      padding: .38rem .45rem;
+      border-left: 3px solid transparent;
+      color: #524c45;
+      text-decoration: none;
+      font-size: .86rem;
+    }
+
+    .side-nav a:hover {
+      border-left-color: var(--burgundy);
+      background: rgba(90,36,50,.06);
+      color: var(--burgundy-dark);
+    }
+
+    .progress-box {
+      margin-top: 20px;
+      padding-top: 17px;
+      border-top: 1px solid #c6bcad;
+    }
+
+    .progress-line {
       display: flex;
       justify-content: space-between;
       gap: 8px;
-      color: var(--muted);
-      font-size: .82rem;
+      color: #665f56;
+      font-size: .76rem;
       font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
     }
 
     .progress-track {
-      height: 9px;
+      height: 8px;
       margin-top: 8px;
       overflow: hidden;
-      border-radius: 999px;
-      background: #0a111e;
-      border: 1px solid #253247;
+      border: 1px solid #b6aa9b;
+      background: #fff;
     }
 
     .progress-bar {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, #b98122, #f1c86b);
+      background: var(--burgundy);
       transition: width .2s ease;
     }
 
-    main { min-width: 0; }
-
-    .section {
-      margin-bottom: 22px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(24,34,53,.94), rgba(17,24,39,.96));
-      padding: clamp(22px, 4vw, 38px);
-      box-shadow: var(--shadow);
+    main {
+      min-width: 0;
+      padding: 0 clamp(24px, 5vw, 60px) 60px;
+      background: var(--white);
     }
 
-    .section h2 {
-      margin: 0 0 16px;
-      font-size: clamp(1.55rem, 3vw, 2.15rem);
+    .chapter {
+      padding: 48px 0 12px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .section h3 {
-      margin-top: 28px;
-      margin-bottom: 9px;
-      color: #f6e3b8;
-      font-size: 1.12rem;
+    .chapter:last-child { border-bottom: 0; }
+
+    .chapter-heading {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 17px;
+      align-items: start;
+      margin-bottom: 20px;
     }
 
-    .section p:last-child { margin-bottom: 0; }
-
-    .lead {
-      color: #d3dbe7;
-      font-size: 1.06rem;
+    .chapter-no {
+      width: 57px;
+      height: 57px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--burgundy);
+      background: var(--burgundy);
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .9rem;
+      font-weight: 900;
+      letter-spacing: .04em;
     }
 
-    .callout {
-      margin: 18px 0;
-      border-left: 5px solid var(--accent);
-      border-radius: 10px;
-      background: #101827;
+    .chapter-heading .kicker {
+      margin-bottom: 5px;
+      font-size: .69rem;
+    }
+
+    .chapter h2 {
+      margin: 0;
+      font-size: clamp(1.75rem, 4vw, 2.7rem);
+      letter-spacing: -.025em;
+    }
+
+    .chapter-intro {
+      margin: 0 0 24px 81px;
+      color: #504b45;
+      font-size: 1.05rem;
+    }
+
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 1.35rem;
+    }
+
+    h4 {
+      margin: 20px 0 7px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .94rem;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    p { margin: .65rem 0 1rem; }
+
+    ul,
+    ol {
+      padding-left: 1.35rem;
+    }
+
+    li + li { margin-top: .36rem; }
+
+    .notice {
+      margin: 22px 0;
+      padding: 17px 19px;
+      border: 1px solid var(--line-dark);
+      border-left: 6px solid var(--burgundy);
+      background: #f7f1e8;
+    }
+
+    .notice strong {
+      color: var(--burgundy-dark);
+    }
+
+    .notice.danger {
+      border-left-color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .notice.warning {
+      border-left-color: var(--amber);
+      background: var(--amber-soft);
+    }
+
+    .notice.good {
+      border-left-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .notice.blue {
+      border-left-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin: 21px 0;
+    }
+
+    .plain-panel {
+      border-top: 4px solid var(--burgundy);
+      border-bottom: 1px solid var(--line);
+      background: #f7f3eb;
       padding: 17px 18px;
     }
 
-    .callout strong {
-      color: var(--accent-2);
+    .plain-panel h3 {
+      margin-top: 0;
+      font-size: 1.16rem;
     }
 
-    .callout.danger { border-left-color: var(--danger); }
-    .callout.warning { border-left-color: var(--warn); }
-    .callout.good { border-left-color: var(--good); }
-
-    .grid-2, .grid-3 {
-      display: grid;
-      gap: 15px;
-    }
-
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    .card {
-      border: 1px solid #34435a;
-      border-radius: 12px;
-      background: #101827;
-      padding: 17px;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      color: var(--text);
-    }
-
-    .card p, .card li { color: #c0cad7; }
-
-    .card.good { border-top: 4px solid var(--good); }
-    .card.warning { border-top: 4px solid var(--warn); }
-    .card.danger { border-top: 4px solid var(--danger); }
-
-    ul, ol { padding-left: 1.25rem; }
-    li + li { margin-top: .36rem; }
-
-    .checklist {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0 0;
-    }
-
-    .checklist li {
-      margin: 0;
-      border-top: 1px solid rgba(255,255,255,.075);
-    }
-
-    .checklist li:first-child { border-top: 0; }
-
-    .checklist label {
-      display: grid;
-      grid-template-columns: 23px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: .72rem .25rem;
-      cursor: pointer;
-    }
-
-    .checklist input {
-      width: 18px;
-      height: 18px;
-      margin-top: .18rem;
-      accent-color: #d6a648;
-    }
-
-    .checklist input:checked + span {
-      color: #8592a4;
-      text-decoration: line-through;
-      text-decoration-thickness: 1px;
-    }
+    .plain-panel.good { border-top-color: var(--green); }
+    .plain-panel.warning { border-top-color: var(--amber); }
+    .plain-panel.danger { border-top-color: var(--red); }
 
     .table-wrap {
       width: 100%;
       overflow-x: auto;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      background: #0d1523;
+      margin: 18px 0 24px;
+      border: 1px solid var(--line-dark);
+      background: #fff;
     }
 
     table {
       width: 100%;
+      min-width: 670px;
       border-collapse: collapse;
-      min-width: 620px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .88rem;
     }
 
-    th, td {
-      padding: .82rem .9rem;
-      border-bottom: 1px solid #27354a;
+    th,
+    td {
+      padding: .72rem .78rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
       text-align: left;
       vertical-align: top;
     }
 
-    th {
-      background: #152033;
-      color: #f3ddb0;
-      font-size: .83rem;
-      letter-spacing: .055em;
-      text-transform: uppercase;
-    }
+    th:last-child,
+    td:last-child { border-right: 0; }
 
     tr:last-child td { border-bottom: 0; }
 
-    td { color: #cad3df; }
-
-    .status {
-      display: inline-block;
-      border-radius: 999px;
-      padding: .18rem .48rem;
-      font-size: .76rem;
-      font-weight: 850;
-      white-space: nowrap;
-    }
-
-    .status.required {
-      background: rgba(244,123,123,.14);
-      color: #ffb0b0;
-      border: 1px solid rgba(244,123,123,.38);
-    }
-
-    .status.recommended {
-      background: rgba(241,189,91,.13);
-      color: #f6d693;
-      border: 1px solid rgba(241,189,91,.35);
-    }
-
-    .status.inspect {
-      background: rgba(131,197,255,.12);
-      color: #a8d8ff;
-      border: 1px solid rgba(131,197,255,.35);
-    }
-
-    .phase {
-      margin-top: 18px;
-      border: 1px solid #34435a;
-      border-radius: 13px;
-      background: #0f1726;
-      overflow: hidden;
-    }
-
-    .phase-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      padding: 16px 18px;
-      border-bottom: 1px solid #2b3a52;
-      background: #152033;
-    }
-
-    .phase-number {
-      color: var(--accent-2);
-      font-size: .78rem;
-      font-weight: 900;
-      letter-spacing: .1em;
+    th {
+      background: var(--burgundy);
+      color: #fff;
+      font-size: .74rem;
+      letter-spacing: .075em;
       text-transform: uppercase;
     }
 
-    .phase h3 {
-      margin: 0;
-      color: var(--text);
-      font-size: 1.18rem;
+    tr:nth-child(even) td {
+      background: #f8f4ed;
     }
 
-    .phase-body { padding: 8px 18px 15px; }
+    .status {
+      display: inline-block;
+      padding: .16rem .42rem;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      font-size: .67rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
 
-    .video-frame {
-      position: relative;
+    .status.required { color: var(--red); background: var(--red-soft); }
+    .status.recommended { color: var(--amber); background: var(--amber-soft); }
+    .status.inspect { color: var(--blue); background: var(--blue-soft); }
+    .status.reuse { color: var(--green); background: var(--green-soft); }
+
+    .record-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px 18px;
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid var(--line-dark);
+      background: #f8f4ec;
+    }
+
+    .record-field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .record-field.full { grid-column: 1 / -1; }
+
+    .record-field label {
+      color: var(--burgundy-dark);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .record-field input,
+    .record-field textarea {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid #8e877c;
+      border-radius: 0;
+      outline: none;
+      background: rgba(255,255,255,.66);
+      color: var(--ink);
+      padding: .5rem .55rem;
+    }
+
+    .record-field textarea {
+      min-height: 82px;
+      resize: vertical;
+      border: 1px solid #a49a8d;
+    }
+
+    .record-field input:focus,
+    .record-field textarea:focus {
+      border-color: var(--burgundy);
+      box-shadow: inset 0 -2px 0 var(--burgundy);
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 19px 0 28px;
+    }
+
+    .steps > li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 37px minmax(0, 1fr);
+      gap: 13px;
+      margin: 0;
+      padding: 13px 0;
+      border-bottom: 1px solid #ded7cc;
+    }
+
+    .steps > li:last-child { border-bottom: 0; }
+
+    .steps > li::before {
+      content: counter(step);
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--burgundy);
+      border-radius: 50%;
+      color: var(--burgundy);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .steps strong {
+      color: var(--burgundy-dark);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0 26px;
+      border-top: 1px solid #d8d0c4;
+    }
+
+    .checklist li {
+      margin: 0;
+      border-bottom: 1px solid #d8d0c4;
+    }
+
+    .checklist label {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      padding: .66rem .2rem;
+      cursor: pointer;
+    }
+
+    .checklist input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: .24rem;
+      accent-color: var(--burgundy);
+    }
+
+    .checklist input:checked + span {
+      color: #89837b;
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+    }
+
+    .subassembly {
+      margin: 27px 0;
+      padding: 0 0 1px 19px;
+      border-left: 5px solid var(--burgundy-soft);
+    }
+
+    .subassembly h3 {
+      margin-top: 0;
+      padding-top: 2px;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 22px 0;
+    }
+
+    figure {
+      margin: 0;
+      border: 1px solid var(--line-dark);
+      background: #fff;
+      padding: 9px;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+    }
+
+    figcaption {
+      padding: 9px 4px 2px;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .76rem;
+      line-height: 1.4;
+    }
+
+    .video-box {
+      margin: 19px 0 24px;
+      border: 1px solid var(--line-dark);
+      background: #111;
+    }
+
+    .video-box iframe {
+      display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
-      overflow: hidden;
-      border: 1px solid #34435a;
-      border-radius: 12px;
-      background: #080d16;
-    }
-
-    .video-frame iframe {
-      width: 100%;
-      height: 100%;
       border: 0;
     }
 
-    .source-list {
-      display: grid;
-      gap: 12px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .source-list li {
-      border: 1px solid #334158;
-      border-radius: 11px;
-      background: #101827;
-      padding: 14px 16px;
-    }
-
-    .source-list strong {
-      display: block;
-      margin-bottom: 3px;
-      color: #f3ddb0;
+    .small {
+      color: var(--muted);
+      font-size: .88rem;
     }
 
     .footer {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto 40px;
-      color: #909bad;
+      padding: 22px 30px 26px;
+      border-top: 1px solid var(--line-dark);
+      background: #eee7db;
+      color: #625a51;
       text-align: center;
-      font-size: .88rem;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .78rem;
     }
 
     .print-only { display: none; }
 
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-      .toc { position: static; }
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    @media (max-width: 920px) {
+      .content-shell { grid-template-columns: 1fr; }
+      .side-nav {
+        position: static;
+        max-height: none;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        columns: 2;
+      }
+      .side-nav h2,
+      .progress-box {
+        column-span: all;
+      }
+      main { padding-top: 0; }
+      .source-rule { grid-template-columns: 1fr; }
+      .source-rule > div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .source-rule > div:last-child { border-bottom: 0; }
     }
 
-    @media (max-width: 640px) {
-      .header-inner { width: min(var(--max), calc(100% - 20px)); }
-      .hero, .layout, .footer { width: min(var(--max), calc(100% - 20px)); }
-      .header-actions .button { display: none; }
-      .hero { margin-top: 20px; padding: 27px 21px; }
-      .section { padding: 21px 17px; }
-      .phase-header { align-items: flex-start; flex-direction: column; gap: 4px; }
+    @media (max-width: 680px) {
+      .page,
+      .topbar-inner {
+        width: min(var(--max), calc(100% - 16px));
+      }
+
+      .page { margin-top: 12px; }
+
+      .brand span:last-child { font-size: .86rem; }
+      .top-actions .optional { display: none; }
+
+      .masthead {
+        padding: 30px 21px 34px;
+        background: var(--white);
+      }
+
+      .masthead::after { display: none; }
+
+      main { padding: 0 18px 35px; }
+
+      .side-nav { columns: 1; }
+
+      .chapter-heading {
+        grid-template-columns: 48px minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .chapter-no {
+        width: 43px;
+        height: 43px;
+        font-size: .75rem;
+      }
+
+      .chapter-intro { margin-left: 0; }
+
+      .split,
+      .record-grid,
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .record-field.full { grid-column: auto; }
     }
 
     @media print {
-      :root {
-        --text: #111;
-        --muted: #444;
-        --line: #bbb;
-      }
-
       body {
         background: #fff;
-        color: #111;
-        font-family: Arial, sans-serif;
+        color: #000;
         font-size: 10.5pt;
       }
 
-      .site-header, .toc, .header-actions, .video-frame, .no-print { display: none !important; }
+      .topbar,
+      .side-nav,
+      .video-box,
+      .no-print {
+        display: none !important;
+      }
+
       .print-only { display: block; }
 
-      .hero, .layout, .footer {
+      .page {
         width: 100%;
         margin: 0;
-      }
-
-      .hero {
         border: 0;
-        border-bottom: 2px solid #222;
-        border-radius: 0;
-        background: #fff;
-        color: #111;
         box-shadow: none;
-        padding: 0 0 20px;
       }
 
-      .hero::after { display: none; }
-      .hero-copy, .pill, .eyebrow { color: #222; }
-      .pill { border-color: #888; background: #fff; }
+      .wood-strip { height: 5px; }
 
-      .layout { display: block; }
-      .section, .phase, .card, .callout, .source-list li {
+      .masthead {
+        padding: 25px 0;
+        border-bottom: 2px solid #333;
+        background: #fff;
+      }
+
+      .masthead::after { display: none; }
+
+      .source-rule {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .content-shell { display: block; }
+
+      main {
+        padding: 0;
+        background: #fff;
+      }
+
+      .chapter {
+        padding: 24px 0 8px;
+        break-before: auto;
+      }
+
+      .chapter-heading,
+      .plain-panel,
+      .notice,
+      .subassembly,
+      table,
+      figure {
         break-inside: avoid;
-        background: #fff;
-        color: #111;
-        border-color: #aaa;
-        box-shadow: none;
       }
 
-      .section { margin: 0; padding: 20px 0; border: 0; border-bottom: 1px solid #bbb; }
-      .phase-header, th { background: #eee; color: #111; }
-      td, .card p, .card li { color: #111; }
-      a { color: #111; text-decoration: none; }
-      .checklist input { appearance: auto; }
+      .chapter-no,
+      th {
+        background: #eee !important;
+        color: #000 !important;
+        border-color: #555;
+      }
+
+      .notice,
+      .plain-panel,
+      .record-grid,
+      tr:nth-child(even) td {
+        background: #fff !important;
+      }
+
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      .footer { background: #fff; }
     }
   </style>
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="#top" aria-label="Roadmaster transmission build home">
-        <span class="brand-mark">RM</span>
-        <span>Roadmaster Transmission Build</span>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">4L60-E</span>
+        <span>1994 Roadmaster Transmission Build</span>
       </a>
-      <div class="header-actions">
-        <button id="reset-progress" type="button">Reset checks</button>
-        <button id="print-page" type="button">Print plan</button>
-        <a class="button primary" href="#build-phases">Start build</a>
+      <div class="top-actions">
+        <button class="optional" id="reset-progress" type="button">Reset checklist</button>
+        <button id="print-plan" type="button">Print build plan</button>
       </div>
     </div>
   </header>
 
-  <section class="hero" id="top">
-    <p class="eyebrow">LS Roadmaster · 2001-style GM 4L60E</p>
-    <h1>Transmission Rebuild Plan</h1>
-    <p class="hero-copy">
-      A measured, contamination-controlled, OEM-plus rebuild specification for a 300&nbsp;mm,
-      PWM-controlled 4L60E in an LS-swapped Buick Roadmaster. This is a build-control document,
-      not a substitute for the year-specific GM/ATSG overhaul manual.
-    </p>
-    <div class="hero-meta">
-      <span class="pill">2001 architecture</span>
-      <span class="pill">300 mm converter family</span>
-      <span class="pill">Heavy-street calibration</span>
-      <span class="pill">Persistent build checklists</span>
-      <span class="pill">Print-ready</span>
-    </div>
-  </section>
+  <div class="page" id="top">
+    <div class="wood-strip" aria-hidden="true"></div>
 
-  <div class="layout">
-    <aside class="toc" aria-label="Page navigation">
-      <h2>Build index</h2>
-      <a href="#scope">Scope and compatibility</a>
-      <a href="#failure-review">Video transmission failures</a>
-      <a href="#build-objective">Build objective</a>
-      <a href="#parts">Parts specification</a>
-      <a href="#avoid">Modifications to avoid</a>
-      <a href="#tools">Tools and equipment</a>
-      <a href="#measurements">Measurements and torque</a>
-      <a href="#build-phases">Build phases</a>
-      <a href="#quality-gates">Quality-control gates</a>
-      <a href="#installation">Installation and commissioning</a>
-      <a href="#video-index">Video timestamp index</a>
-      <a href="#sources">Sources</a>
-
-      <div class="progress-wrap">
-        <div class="progress-label">
-          <span>Checklist progress</span>
-          <span id="progress-text">0%</span>
-        </div>
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-bar" id="progress-bar"></div>
+    <header class="masthead">
+      <div class="masthead-copy">
+        <p class="kicker">1994 Buick Roadmaster Estate Wagon</p>
+        <h1>4L60-E Rebuild Plan</h1>
+        <p class="subtitle">
+          A year-correct rebuild strategy for the original LT1-powered Roadmaster wagon:
+          preserve the 1994 non-PWM hydraulic and electronic architecture, correct the known
+          weak points, and use the later YouTube build only where the mechanical procedure
+          genuinely carries over.
+        </p>
+        <div class="identity-row">
+          <span class="identity-tag primary">Vehicle-specific build</span>
+          <span class="identity-tag">5.7L LT1 V8</span>
+          <span class="identity-tag">RPO M30</span>
+          <span class="identity-tag">298 mm converter family</span>
+          <span class="identity-tag">1994 non-PWM TCC</span>
+          <span class="identity-tag">One-piece case</span>
+          <span class="identity-tag">Rear-wheel drive</span>
         </div>
       </div>
-    </aside>
+    </header>
 
-    <main>
-      <section class="section" id="scope">
-        <p class="eyebrow">01 · Scope</p>
-        <h2>Compatibility comes before parts ordering</h2>
-        <p class="lead">
-          This plan targets the transmission shown in the FSP video: a 2001-style, 300&nbsp;mm,
-          removable-bellhousing 4L60E intended for an LS drivetrain. It does not describe the
-          original 1994 Roadmaster LT1 transmission as an interchangeable assembly.
-        </p>
+    <section class="source-rule" aria-label="How the sources are used">
+      <div>
+        <strong>Primary technical map</strong>
+        <span>Your 4L60-E Technician’s Guide site: component function, hydraulic flow, locations, diagrams and specifications.</span>
+      </div>
+      <div>
+        <strong>Visual assembly reference</strong>
+        <span>FSP’s 2001 rebuild video: handling, seal installation, clutch assembly, pump alignment and air checks.</span>
+      </div>
+      <div>
+        <strong>Controlling authority</strong>
+        <span>The 1994 Roadmaster factory service manual, 1994 service bulletins and the instructions supplied with the selected rebuild parts.</span>
+      </div>
+    </section>
 
-        <div class="callout danger">
-          <strong>Critical:</strong> Do not mix the original 298&nbsp;mm LT1 pump, stator, input shaft
-          and converter family with the later 300&nbsp;mm LS family. The case, valve body, separator
-          plate, gaskets, harness, converter and PCM strategy must be treated as compatible systems.
+    <div class="content-shell">
+      <nav class="side-nav" aria-label="Build plan navigation">
+        <h2>Rebuild sequence</h2>
+        <a href="#identity">1. Confirm the transmission</a>
+        <a href="#strategy">2. Define the build</a>
+        <a href="#differences">3. 1994 vs. 2001 video</a>
+        <a href="#parts">4. Parts plan</a>
+        <a href="#tools">5. Tools and work area</a>
+        <a href="#baseline">6. Baseline and removal</a>
+        <a href="#teardown">7. Teardown</a>
+        <a href="#inspection">8. Inspection decisions</a>
+        <a href="#subassemblies">9. Rebuild subassemblies</a>
+        <a href="#final-assembly">10. Final assembly</a>
+        <a href="#installation">11. Installation and cooling</a>
+        <a href="#commissioning">12. Initial test</a>
+        <a href="#specs">13. Build sheet</a>
+        <a href="#video">14. Video cross-reference</a>
+        <a href="#diagrams">15. Technical diagrams</a>
+        <a href="#sources">16. Sources</a>
+
+        <div class="progress-box">
+          <div class="progress-line">
+            <span>Build checklist</span>
+            <span id="progress-text">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
         </div>
+      </nav>
 
-        <div class="grid-2">
-          <article class="card">
-            <h3>Target configuration</h3>
+      <main>
+        <section class="chapter" id="identity">
+          <div class="chapter-heading">
+            <div class="chapter-no">01</div>
+            <div>
+              <p class="kicker">Identity</p>
+              <h2>Confirm exactly what is on the bench</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            The plan assumes the original-type 1994 B-body 4L60-E behind the Roadmaster-spec LT1.
+            The first job is to prove that assumption before ordering any calibration-sensitive part.
+          </p>
+
+          <div class="notice danger">
+            <strong>Do not order a “1993–2006 4L60-E kit” and assume every part will fit.</strong>
+            The 1994 unit predates the 1995 PWM TCC system and the later 300&nbsp;mm/removable-bellhousing
+            configuration shown in the video. Pump, valve body, separator plate, gaskets, harness,
+            solenoid arrangement and torque converter must remain a compatible 1994 system.
+          </div>
+
+          <div class="record-grid">
+            <div class="record-field">
+              <label for="vehicle-vin">Vehicle VIN</label>
+              <input id="vehicle-vin" data-record="vehicle-vin" type="text" placeholder="Record VIN">
+            </div>
+            <div class="record-field">
+              <label for="build-date">Vehicle build date</label>
+              <input id="build-date" data-record="build-date" type="text" placeholder="Month / year">
+            </div>
+            <div class="record-field">
+              <label for="trans-tag">Transmission tag / broadcast code</label>
+              <input id="trans-tag" data-record="trans-tag" type="text" placeholder="Record code exactly">
+            </div>
+            <div class="record-field">
+              <label for="julian-date">Transmission Julian build date</label>
+              <input id="julian-date" data-record="julian-date" type="text" placeholder="Important for 1994 updates">
+            </div>
+            <div class="record-field">
+              <label for="plate-code">Separator plate identification</label>
+              <input id="plate-code" data-record="plate-code" type="text" placeholder="Photograph and record">
+            </div>
+            <div class="record-field">
+              <label for="converter-code">Torque converter code / markings</label>
+              <input id="converter-code" data-record="converter-code" type="text" placeholder="298 mm application">
+            </div>
+            <div class="record-field">
+              <label for="axle-ratio">Rear axle ratio</label>
+              <input id="axle-ratio" data-record="axle-ratio" type="text" placeholder="Verify SPID / axle code">
+            </div>
+            <div class="record-field">
+              <label for="tire-size">Rear tire size</label>
+              <input id="tire-size" data-record="tire-size" type="text" placeholder="For speed and lockup validation">
+            </div>
+            <div class="record-field full">
+              <label for="baseline-symptoms">Baseline symptoms and failure history</label>
+              <textarea id="baseline-symptoms" data-record="baseline-symptoms" placeholder="Delayed engagement, flare, loss of gear, noise, fluid condition, codes, temperature, prior repairs..."></textarea>
+            </div>
+          </div>
+
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-key="id-01"><span>Tag, broadcast code, case casting and tailhousing photographed.</span></label></li>
+            <li><label><input type="checkbox" data-key="id-02"><span>One-piece 1994 case and 2WD output configuration confirmed.</span></label></li>
+            <li><label><input type="checkbox" data-key="id-03"><span>Original-style non-PWM valve-body layout confirmed.</span></label></li>
+            <li><label><input type="checkbox" data-key="id-04"><span>298 mm converter family confirmed from application and physical identification.</span></label></li>
+            <li><label><input type="checkbox" data-key="id-05"><span>Separator plate and gasket package identified before disassembly parts are discarded.</span></label></li>
+            <li><label><input type="checkbox" data-key="id-06"><span>Transmission build date checked against 1994 garage-shift service update.</span></label></li>
+          </ul>
+        </section>
+
+        <section class="chapter" id="strategy">
+          <div class="chapter-heading">
+            <div class="chapter-no">02</div>
+            <div>
+              <p class="kicker">Build definition</p>
+              <h2>Build for the Roadmaster, not for a drag car</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            The wagon is heavy, the LT1 makes strong low-speed torque, and the factory calibration
+            was designed for smooth Buick operation. The target is durability with controlled shifts,
+            not maximum apply pressure and violent shift feel.
+          </p>
+
+          <div class="split">
+            <div class="plain-panel good">
+              <h3>Build priorities</h3>
+              <ul>
+                <li>Preserve 1994 non-PWM electronics and TCC control.</li>
+                <li>Restore pump and valve-body hydraulic integrity.</li>
+                <li>Strengthen the reaction shell and 3-4 clutch system.</li>
+                <li>Retain clutch-steel thermal mass.</li>
+                <li>Retain appropriate accumulator and servo cushioning.</li>
+                <li>Control temperature with a completely clean cooler circuit.</li>
+              </ul>
+            </div>
+            <div class="plain-panel danger">
+              <h3>What this build is not</h3>
+              <ul>
+                <li>No 2001 pump, valve body or PWM hardware conversion.</li>
+                <li>No maximum-pressure “race” calibration by default.</li>
+                <li>No arbitrary accumulator blocking.</li>
+                <li>No thin-steel clutch-count contest.</li>
+                <li>No converter reuse after metallic contamination.</li>
+                <li>No unmeasured clutch packs or endplay.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="notice good">
+            <strong>Recommended build level:</strong> stock-to-mild LT1, heavy-street use, highway
+            cruising and normal wagon duty. A future high-output engine changes the input-shaft,
+            drum, converter and calibration decisions and should be specified before parts are purchased.
+          </div>
+        </section>
+
+        <section class="chapter" id="differences">
+          <div class="chapter-heading">
+            <div class="chapter-no">03</div>
+            <div>
+              <p class="kicker">Source control</p>
+              <h2>What carries over from the 2001 video—and what does not</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            The mechanical architecture is similar enough that the video is valuable. The year-dependent
+            hydraulic and electrical details are different enough that copying them directly can ruin the transmission.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>System</th>
+                  <th>1994 Roadmaster build</th>
+                  <th>2001 video unit</th>
+                  <th>Rule for this project</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TCC control</td>
+                  <td>Early non-PWM/on-off strategy</td>
+                  <td>PWM-controlled</td>
+                  <td>Retain the complete 1994 strategy; do not install the video’s PWM arrangement.</td>
+                </tr>
+                <tr>
+                  <td>Converter family</td>
+                  <td>298 mm</td>
+                  <td>300 mm</td>
+                  <td>Buy a Roadmaster/LT1-compatible 298 mm converter.</td>
+                </tr>
+                <tr>
+                  <td>Case</td>
+                  <td>One-piece early case</td>
+                  <td>Later removable bellhousing</td>
+                  <td>Ignore later bellhousing and pump-family assumptions.</td>
+                </tr>
+                <tr>
+                  <td>Pump</td>
+                  <td>1993–94 non-PWM hydraulic architecture</td>
+                  <td>Later 300 mm pump with TransGo parts</td>
+                  <td>Rebuild or replace with a verified year-correct non-PWM pump.</td>
+                </tr>
+                <tr>
+                  <td>Valve body</td>
+                  <td>1994 calibration, plate and gaskets</td>
+                  <td>Specially remanufactured different-year casting</td>
+                  <td>Use a 1994-correct assembly or a supplier-documented equivalent.</td>
+                </tr>
+                <tr>
+                  <td>Checkballs</td>
+                  <td>Follow the 1994 plate/case arrangement</td>
+                  <td>Later valve-body arrangement</td>
+                  <td>Use the video for handling only, never for location authority.</td>
+                </tr>
+                <tr>
+                  <td>Accumulator modification</td>
+                  <td>Keep the selected 1994 street calibration</td>
+                  <td>Builder blocks a passage with a checkball</td>
+                  <td>Do not copy unless a specific 1994 kit explicitly instructs it.</td>
+                </tr>
+                <tr>
+                  <td>Useful procedures</td>
+                  <td colspan="2">Piston/seal installation, sprag assembly, drum loading, pump alignment, air testing, band/servo handling and cleanliness.</td>
+                  <td>Use visually, then verify dimensions and orientation in 1994 literature.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="notice warning">
+            <strong>1994 service-update trap:</strong> transmissions built before March 7, 1994 may
+            have the original garage-shift package. GM required the spacer plate and garage-shift
+            package to remain matched. Identify what is present; do not mix an updated package with
+            the original plate or the reverse.
+          </div>
+        </section>
+
+        <section class="chapter" id="parts">
+          <div class="chapter-heading">
+            <div class="chapter-no">04</div>
+            <div>
+              <p class="kicker">Procurement</p>
+              <h2>Parts plan for the 1994 LT1 transmission</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            Buy universal hard upgrades only where they truly are universal. Every hydraulic,
+            electrical and converter component must be ordered by the 1994 Roadmaster application.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Status</th>
+                  <th>1994 Roadmaster specification</th>
+                  <th>Decision rule</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Master overhaul kit</td>
+                  <td><span class="status required">Required</span></td>
+                  <td>1993–94/1994-compatible seals and gaskets</td>
+                  <td>Confirm molded versus lip-seal piston contents before ordering.</td>
+                </tr>
+                <tr>
+                  <td>Forward and 3-4 outer seals</td>
+                  <td><span class="status required">Required</span></td>
+                  <td>Updated long-lip design</td>
+                  <td>Use the improved 1994 service design, especially with any burnt clutch history.</td>
+                </tr>
+                <tr>
+                  <td>Friction and steel kit</td>
+                  <td><span class="status required">Required</span></td>
+                  <td>High-energy friction material with new, full-thickness steels</td>
+                  <td>Do not trade away steel mass merely to add clutch count.</td>
+                </tr>
+                <tr>
+                  <td>3-4 clutch system</td>
+                  <td><span class="status recommended">Recommended</span></td>
+                  <td>Rigid heavy-duty backing/apply plate; measured seven-friction package where engineered to fit</td>
+                  <td>Use one matched system and its specified clearance method.</td>
+                </tr>
+                <tr>
+                  <td>Reaction sun shell</td>
+                  <td><span class="status required">Required</span></td>
+                  <td>Heat-treated/hardened early-style shell compatible with the thrust arrangement</td>
+                  <td>Replace even if the original appears usable.</td>
+                </tr>
+                <tr>
+                  <td>2-4 band</td>
+                  <td><span class="status recommended">Recommended</span></td>
+                  <td>Wide, high-energy band</td>
+                  <td>Drum surface and servo calibration must be compatible.</td>
+                </tr>
+                <tr>
+                  <td>Second/fourth servo</td>
+                  <td><span class="status inspect">Inspect</span></td>
+                  <td>Street-oriented apply area with cushion spring retained</td>
+                  <td>Measure existing parts and servo travel before replacing.</td>
+                </tr>
+                <tr>
+                  <td>Pump</td>
+                  <td><span class="status inspect">Inspect</span></td>
+                  <td>1993–94 non-PWM pump architecture</td>
+                  <td>Rebuild if bores and pocket are serviceable; otherwise use a verified year-correct reman.</td>
+                </tr>
+                <tr>
+                  <td>Valve body</td>
+                  <td><span class="status inspect">Inspect</span></td>
+                  <td>1994 non-PWM casting/calibration with matching plate and gaskets</td>
+                  <td>Vacuum-test; repair worn bores or buy a documented 1994-correct reman.</td>
+                </tr>
+                <tr>
+                  <td>Solenoids and harness</td>
+                  <td><span class="status inspect">Inspect</span></td>
+                  <td>1994 internal electrical configuration</td>
+                  <td>Test resistance, insulation and connectors; replace contaminated or marginal parts.</td>
+                </tr>
+                <tr>
+                  <td>Torque converter</td>
+                  <td><span class="status required">Required</span></td>
+                  <td>298 mm, 1994 Roadmaster/LT1, non-PWM lockup</td>
+                  <td>Use stock-to-mild stall unless engine/cam/axle specification requires otherwise.</td>
+                </tr>
+                <tr>
+                  <td>Bushings, washers, bearings</td>
+                  <td><span class="status required">Required</span></td>
+                  <td>Complete bushing set plus selective replacement of bearings and washers</td>
+                  <td>Rear stator-support bushing receives special scrutiny.</td>
+                </tr>
+                <tr>
+                  <td>Planetaries, drums, shafts, gears</td>
+                  <td><span class="status inspect">Inspect</span></td>
+                  <td>Original early-style compatible hard parts</td>
+                  <td>Replace based on cracks, runout, endplay, spline wear, bushing fit and contamination damage.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Order only after inspection</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-key="parts-01"><span>1994 application and transmission tag supplied to the kit vendor.</span></label></li>
+            <li><label><input type="checkbox" data-key="parts-02"><span>Garage-shift package and separator plate generation identified.</span></label></li>
+            <li><label><input type="checkbox" data-key="parts-03"><span>Updated long-lip forward and 3-4 seals included or ordered separately.</span></label></li>
+            <li><label><input type="checkbox" data-key="parts-04"><span>298 mm non-PWM converter specification confirmed in writing.</span></label></li>
+            <li><label><input type="checkbox" data-key="parts-05"><span>Hardened reaction shell confirmed compatible with early thrust-washer arrangement.</span></label></li>
+            <li><label><input type="checkbox" data-key="parts-06"><span>3-4 clutch backing plate, frictions and steels purchased as one measured system.</span></label></li>
+            <li><label><input type="checkbox" data-key="parts-07"><span>Valve-body supplier confirms 1994 non-PWM compatibility.</span></label></li>
+            <li><label><input type="checkbox" data-key="parts-08"><span>Conditional hard parts held until teardown measurements are complete.</span></label></li>
+          </ul>
+        </section>
+
+        <section class="chapter" id="tools">
+          <div class="chapter-heading">
+            <div class="chapter-no">05</div>
+            <div>
+              <p class="kicker">Equipment</p>
+              <h2>Tools and work area</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            A clean bench and the correct measuring tools matter more than specialty “performance”
+            parts. Do not begin internal assembly until every mandatory tool is in hand.
+          </p>
+
+          <div class="split">
+            <div class="plain-panel">
+              <h3>Vehicle and handling</h3>
+              <ul>
+                <li>Lift or properly rated stands</li>
+                <li>Transmission jack with retaining strap</li>
+                <li>Engine support</li>
+                <li>Converter retaining tool</li>
+                <li>Drain and cooler-line equipment</li>
+              </ul>
+            </div>
+            <div class="plain-panel">
+              <h3>Assembly</h3>
+              <ul>
+                <li>Transmission fixture or stable rotating stand</li>
+                <li>Clutch and low/reverse spring compressors</li>
+                <li>Pump puller, guide studs and alignment band</li>
+                <li>Bushing drivers and arbor/hydraulic press</li>
+                <li>Seal protectors and Teflon ring sizing tools</li>
+              </ul>
+            </div>
+            <div class="plain-panel">
+              <h3>Measurement</h3>
+              <ul>
+                <li>Dial indicator and endplay fixture</li>
+                <li>Feeler gauges</li>
+                <li>Micrometers and calipers</li>
+                <li>Straightedge and bore gauges</li>
+                <li>Calibrated inch-pound and foot-pound torque wrenches</li>
+              </ul>
+            </div>
+            <div class="plain-panel">
+              <h3>Testing</h3>
+              <ul>
+                <li>Regulated air with rubber tip</li>
+                <li>Valve-body/pump vacuum test equipment</li>
+                <li>Line-pressure gauge</li>
+                <li>Digital multimeter</li>
+                <li>Scan tool capable of 1994 GM powertrain data</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="notice blue">
+            <strong>Outsource intelligently:</strong> if you do not own valve-body vacuum plates,
+            reamers and pump-bore test equipment, send those cleaned assemblies to a specialist.
+            Installing new clutches over worn hydraulic circuits is not a complete rebuild.
+          </div>
+        </section>
+
+        <section class="chapter" id="baseline">
+          <div class="chapter-heading">
+            <div class="chapter-no">06</div>
+            <div>
+              <p class="kicker">Before teardown</p>
+              <h2>Baseline diagnosis and removal</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            Record how the transmission failed before dismantling it. The debris pattern, pressure
+            behavior and failed range identify the circuit or hard part that must be corrected.
+          </p>
+
+          <ol class="steps">
+            <li><span><strong>Scan and document.</strong> Record DTCs, commanded gear, actual ratio, TCC command, transmission temperature and any available force-motor data.</span></li>
+            <li><span><strong>Road-test only if safe.</strong> Record Drive and Reverse engagement time, 1-2, 2-3 and 3-4 behavior, TCC apply and any flare, bind, slip or noise.</span></li>
+            <li><span><strong>Pressure-test.</strong> Measure line pressure in the applicable ranges and compare with the 1994 service procedure.</span></li>
+            <li><span><strong>Inspect the driveline.</strong> Record mount, U-joint, slip-yoke and differential lash issues so they are not mistaken for transmission faults later.</span></li>
+            <li><span><strong>Remove safely.</strong> Disconnect the battery, support the engine, drain fluid, remove driveshaft, wiring, linkage, cooler lines, crossmember, converter bolts and bellhousing fasteners.</span></li>
+            <li><span><strong>Preserve evidence.</strong> Drain through a clean screen; photograph the pan and magnet; cut the filter open.</span></li>
+          </ol>
+
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-key="base-01"><span>Codes and scan data saved.</span></label></li>
+            <li><label><input type="checkbox" data-key="base-02"><span>Engagement, shift and TCC symptoms recorded.</span></label></li>
+            <li><label><input type="checkbox" data-key="base-03"><span>Line pressure recorded where possible.</span></label></li>
+            <li><label><input type="checkbox" data-key="base-04"><span>Pan, magnet, fluid and filter debris photographed.</span></label></li>
+            <li><label><input type="checkbox" data-key="base-05"><span>Converter marked for non-reuse if metal or clutch debris is present.</span></label></li>
+            <li><label><input type="checkbox" data-key="base-06"><span>Cooler circuit classified for replacement or professional flushing.</span></label></li>
+          </ul>
+        </section>
+
+        <section class="chapter" id="teardown">
+          <div class="chapter-heading">
+            <div class="chapter-no">07</div>
+            <div>
+              <p class="kicker">Disassembly</p>
+              <h2>Teardown in controlled modules</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            Photograph every orientation. Keep each subassembly in its own tray. Thrust bearings,
+            washers, snap rings, valve-body bolts and checkballs must never become an unidentified pile.
+          </p>
+
+          <ol class="steps">
+            <li><span><strong>Measure first.</strong> Record available input/output endplay before internal disassembly.</span></li>
+            <li><span><strong>External components.</strong> Remove converter, range components, speed sensor, extension housing and external brackets.</span></li>
+            <li><span><strong>Pan and controls.</strong> Remove filter, harness, solenoids, pressure switch manifold, accumulators, valve body, plate and gaskets.</span></li>
+            <li><span><strong>Map the checkballs.</strong> Photograph their exact locations and create a physical template before the case is moved.</span></li>
+            <li><span><strong>Servo and pump.</strong> Remove the servo as an indexed assembly; pull the pump with the proper puller rather than prying on the case.</span></li>
+            <li><span><strong>Front modules.</strong> Remove reverse-input drum, input housing, band and associated bearings/washers.</span></li>
+            <li><span><strong>Geartrain.</strong> Remove reaction shell, sun gear, carriers, ring gear/reaction shaft, output shaft and low/reverse support.</span></li>
+            <li><span><strong>Low/reverse assembly.</strong> Compress the spring assembly safely and remove the piston and clutch components.</span></li>
+          </ol>
+
+          <div class="notice warning">
+            <strong>Do not discard the original separator plate, gaskets, accumulator springs,
+            selective plates, washers or servo pin.</strong> They are identification and measurement
+            references even when they will ultimately be replaced.
+          </div>
+        </section>
+
+        <section class="chapter" id="inspection">
+          <div class="chapter-heading">
+            <div class="chapter-no">08</div>
+            <div>
+              <p class="kicker">Decision point</p>
+              <h2>Clean, inspect, measure, then place the second parts order</h2>
+            </div>
+          </div>
+          <p class="chapter-intro">
+            The rebuild becomes reliable at this stage. Every failed friction or hard part needs a
+            cause: leakage, restricted exhaust, loss of support, contamination, excess travel,
+            distorted apply components or incorrect calibration.
+          </p>
+
+          <div class="subassembly">
+            <h3>Case</h3>
             <ul>
-              <li>2001-style 4L60E architecture</li>
-              <li>Removable LS bellhousing</li>
-              <li>300&nbsp;mm pump, stator and converter family</li>
-              <li>2WD output shaft and extension housing</li>
-              <li>PWM torque-converter-clutch control</li>
-              <li>Matching LS PCM or transmission controller</li>
+              <li>Inspect pump bore, center-support lugs, low/reverse snap-ring groove and case cracks.</li>
+              <li>Inspect servo bore, accumulator pin bores and manual-shaft bore.</li>
+              <li>Check valve-body surface flatness and passage damage.</li>
+              <li>Test the hidden third-accumulator checkball capsule for leakage.</li>
             </ul>
-          </article>
-          <article class="card">
-            <h3>Identify before buying</h3>
+          </div>
+
+          <div class="subassembly">
+            <h3>Pump and stator support</h3>
             <ul>
-              <li>Broadcast tag and case casting</li>
-              <li>Bellhousing casting and bolt pattern</li>
-              <li>Valve-body casting and separator plate</li>
-              <li>Input-shaft and output-shaft configuration</li>
-              <li>Internal harness and connector arrangement</li>
-              <li>Converter dimensions, pilot and bolt circle</li>
+              <li>Inspect pump pocket, rotor, vanes, rings, slide, crescent and pivot pin.</li>
+              <li>Vacuum-test pressure-regulator, boost and converter-clutch circuits.</li>
+              <li>Inspect stator splines, bushings, sealing-ring surfaces and concentricity.</li>
+              <li>Reject a wrong-year PWM pump; do not convert the unit by accident.</li>
             </ul>
-          </article>
-        </div>
-      </section>
+          </div>
 
-      <section class="section" id="failure-review">
-        <p class="eyebrow">02 · Source transmission</p>
-        <h2>What failed in the video unit</h2>
-        <p>
-          The 260,000-mile video core suffered a broad mechanical and hydraulic failure. It was not
-          a simple friction-and-seal overhaul.
-        </p>
-
-        <div class="grid-3">
-          <article class="card danger">
-            <h3>Mechanical damage</h3>
+          <div class="subassembly">
+            <h3>Input housing and 3-4 circuit</h3>
             <ul>
-              <li>Reaction shell splines completely stripped</li>
-              <li>Sun gear damaged</li>
-              <li>Lower planetary badly worn</li>
-              <li>Ring gear/reaction-shaft damage</li>
-              <li>Reverse-input drum replaced</li>
+              <li>Inspect input shaft, sealing-ring grooves, drum splines, checkballs and feed passages.</li>
+              <li>Check the shaft-to-drum press fit for leakage and galling.</li>
+              <li>Inspect piston bores, apply plate, backing plate and 3-4 load-release springs.</li>
+              <li>Diagnose any uneven burn pattern rather than merely replacing the frictions.</li>
             </ul>
-          </article>
-          <article class="card danger">
-            <h3>Clutch and contamination</h3>
+          </div>
+
+          <div class="subassembly">
+            <h3>Reverse-input drum, band and servo</h3>
             <ul>
-              <li>Forward clutch damaged</li>
-              <li>Metal circulated through the unit</li>
-              <li>Pump stator visibly scored</li>
-              <li>Converter and cooler circuit presumed contaminated</li>
+              <li>Measure drum surface taper, scoring, heat checking and runout.</li>
+              <li>Inspect band lining and anchor areas.</li>
+              <li>Inspect servo pin, bores, pistons, cushion spring and sealing surfaces.</li>
             </ul>
-          </article>
-          <article class="card warning">
-            <h3>Hydraulic wear</h3>
+          </div>
+
+          <div class="subassembly">
+            <h3>Geartrain and one-way clutches</h3>
             <ul>
-              <li>AFL valve circuit failed vacuum test</li>
-              <li>TCC regulator circuit failed vacuum test</li>
-              <li>Remanufactured pump installed</li>
-              <li>Sonnax-remanufactured valve body installed</li>
+              <li>Replace the reaction shell with a hardened early-style shell.</li>
+              <li>Inspect sun gear, reaction shaft, ring gear and output splines.</li>
+              <li>Measure planetary pinion endplay and inspect thrust washers.</li>
+              <li>Inspect sprag/roller elements and races; verify lock and freewheel direction.</li>
             </ul>
-          </article>
-        </div>
+          </div>
 
-        <div class="callout">
-          <strong>Build implication:</strong> Treat an unknown core as a complete teardown, cleaning,
-          hydraulic-restoration and measured-reassembly project. Do not assume a master kit alone
-          constitutes a rebuild.
-        </div>
-      </section>
-
-      <section class="section" id="build-objective">
-        <p class="eyebrow">03 · Specification</p>
-        <h2>Recommended Roadmaster build objective</h2>
-        <p class="lead">
-          Build an OEM-plus, heavy-street transmission: strong enough for the Roadmaster’s mass and a
-          stock or mildly modified 5.3-liter LS, but calibrated to avoid harsh driveline shock.
-        </p>
-
-        <div class="grid-2">
-          <article class="card good">
-            <h3>Priorities</h3>
+          <div class="subassembly">
+            <h3>Valve body and electronics</h3>
             <ul>
-              <li>Leak-free 3-4 clutch feed circuit</li>
-              <li>Stable, progressive line pressure</li>
-              <li>Strong reaction-shell and geartrain durability</li>
-              <li>Full-thickness clutch steels with thermal capacity</li>
-              <li>Firm, controlled shifts with retained cushioning</li>
-              <li>Proper converter clutch and cooling strategy</li>
-            </ul>
-          </article>
-          <article class="card warning">
-            <h3>Not the objective</h3>
-            <ul>
-              <li>Maximum-pressure drag-race calibration</li>
-              <li>Largest possible second servo</li>
-              <li>Every accumulator blocked</li>
-              <li>Maximum clutch count using very thin steels</li>
-              <li>Loose high-stall converter with the 2.91 axle</li>
-              <li>Parts selected solely by marketing claims</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="parts">
-        <p class="eyebrow">04 · Parts</p>
-        <h2>Parts specification</h2>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Component</th>
-                <th>Status</th>
-                <th>Build note</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Overhaul</td>
-                <td>Year-correct master overhaul kit</td>
-                <td><span class="status required">Required</span></td>
-                <td>Seals, gaskets and soft parts must match the exact unit.</td>
-              </tr>
-              <tr>
-                <td>Clutches</td>
-                <td>High-energy friction set and new steels</td>
-                <td><span class="status required">Required</span></td>
-                <td>Prefer full-thickness steels and measured pack clearance.</td>
-              </tr>
-              <tr>
-                <td>Pistons</td>
-                <td>Complete molded-piston set</td>
-                <td><span class="status required">Required</span></td>
-                <td>Replace aged molded pistons rather than reusing hardened seals.</td>
-              </tr>
-              <tr>
-                <td>Bushings</td>
-                <td>Complete bushing kit</td>
-                <td><span class="status required">Required</span></td>
-                <td>Rear stator-support bushing is particularly important.</td>
-              </tr>
-              <tr>
-                <td>Reaction drive</td>
-                <td>Hardened SmartShell/Beast-type sun shell</td>
-                <td><span class="status required">Required</span></td>
-                <td>Addresses the stripped-shell failure seen in the video.</td>
-              </tr>
-              <tr>
-                <td>3-4 clutch</td>
-                <td>Heavy-duty backing/apply plate system</td>
-                <td><span class="status required">Required</span></td>
-                <td>Use seven full-thickness frictions unless a complete engineered system specifies otherwise.</td>
-              </tr>
-              <tr>
-                <td>Band</td>
-                <td>Wide high-energy 2-4 band</td>
-                <td><span class="status recommended">Recommended</span></td>
-                <td>Match the band to drum finish and servo calibration.</td>
-              </tr>
-              <tr>
-                <td>Servo</td>
-                <td>Corvette-ratio second servo</td>
-                <td><span class="status recommended">Recommended</span></td>
-                <td>Retain cushioning and measure pin travel.</td>
-              </tr>
-              <tr>
-                <td>Valve body</td>
-                <td>Repaired or remanufactured, application-correct valve body</td>
-                <td><span class="status required">Required</span></td>
-                <td>AFL and TCC circuits must pass vacuum testing.</td>
-              </tr>
-              <tr>
-                <td>Electronics</td>
-                <td>EPC and TCC PWM solenoids</td>
-                <td><span class="status recommended">Recommended</span></td>
-                <td>Replace when mileage, contamination or test results justify it.</td>
-              </tr>
-              <tr>
-                <td>Converter</td>
-                <td>New or professionally remanufactured 300 mm PWM converter</td>
-                <td><span class="status required">Required</span></td>
-                <td>Use stock-to-moderate stall for a street Roadmaster with a 2.91 axle.</td>
-              </tr>
-              <tr>
-                <td>Hard parts</td>
-                <td>Pump, drums, planetaries, shafts, gears and case</td>
-                <td><span class="status inspect">Inspect</span></td>
-                <td>Replace based on measurement, cracks, wear, runout and contamination damage.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>Mandatory soft-part checklist</h3>
-        <ul class="checklist">
-          <li><label><input type="checkbox" data-key="parts-01"><span>Master overhaul kit confirmed for the exact broadcast code.</span></label></li>
-          <li><label><input type="checkbox" data-key="parts-02"><span>High-energy frictions and new steels obtained.</span></label></li>
-          <li><label><input type="checkbox" data-key="parts-03"><span>Complete molded-piston set obtained.</span></label></li>
-          <li><label><input type="checkbox" data-key="parts-04"><span>Bushing kit, thrust washers and required bearings obtained.</span></label></li>
-          <li><label><input type="checkbox" data-key="parts-05"><span>Filter, filter seal, pan gasket and pump bolt O-rings obtained.</span></label></li>
-          <li><label><input type="checkbox" data-key="parts-06"><span>Manual shaft seal and extension-housing seal/bushing obtained.</span></label></li>
-          <li><label><input type="checkbox" data-key="parts-07"><span>New 3-4 load-release springs obtained.</span></label></li>
-          <li><label><input type="checkbox" data-key="parts-08"><span>Converter specification matched to engine, axle, tire and PWM strategy.</span></label></li>
-        </ul>
-      </section>
-
-      <section class="section" id="avoid">
-        <p class="eyebrow">05 · Guardrails</p>
-        <h2>Modifications and shortcuts to avoid</h2>
-        <div class="grid-2">
-          <article class="card danger">
-            <h3>Do not copy blindly</h3>
-            <ul>
-              <li>Do not use a dime as the final 3-4 clutch measurement.</li>
-              <li>Do not accept “it spins” as the only clutch-clearance test.</li>
-              <li>Do not tighten pump or valve-body bolts by feel.</li>
-              <li>Do not copy checkball placement from an unrelated year.</li>
-              <li>Do not install a different-year valve body without documented compatibility.</li>
-            </ul>
-          </article>
-          <article class="card danger">
-            <h3>Do not over-calibrate</h3>
-            <ul>
-              <li>Do not block an accumulator passage unless the exact kit instructions require it.</li>
-              <li>Do not plug the hidden third-accumulator checkball circuit.</li>
-              <li>Do not combine maximum boost, maximum servo and aggressive PCM pressure tables indiscriminately.</li>
-              <li>Do not block the PWM TCC regulator circuit to force full-pressure lockup.</li>
-              <li>Do not remove all shift cushioning from a heavy street car.</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="callout warning">
-          <strong>Video-specific caution:</strong> The builder used a 0.500-inch boost valve, blocked an
-          accumulator-related passage and installed a specially remanufactured 1995 valve body in a
-          2001 transmission. Those choices are valid only as parts of documented, matched calibrations.
-        </div>
-      </section>
-
-      <section class="section" id="tools">
-        <p class="eyebrow">06 · Equipment</p>
-        <h2>Required tools and test equipment</h2>
-
-        <div class="grid-2">
-          <article class="card">
-            <h3>Vehicle and bench handling</h3>
-            <ul>
-              <li>Transmission jack with retaining strap</li>
-              <li>Lift or properly rated jack stands</li>
-              <li>Engine support arrangement</li>
-              <li>Stable transmission fixture or rotating stand</li>
-              <li>Large clean workbench and labeled trays</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Assembly tools</h3>
-            <ul>
-              <li>Clutch spring compressors</li>
-              <li>Low/reverse compressor</li>
-              <li>Seal installers and lip protectors</li>
-              <li>Bushing drivers and press</li>
-              <li>Pump puller, guide studs and alignment band</li>
-              <li>Input-shaft sealing-ring installer and sizer</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Measurement</h3>
-            <ul>
-              <li>Dial indicator and endplay fixture</li>
-              <li>Feeler gauges</li>
-              <li>Micrometers and calipers</li>
-              <li>Straightedge and bore gauges</li>
-              <li>Inch-pound and foot-pound torque wrenches</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Hydraulic and electrical testing</h3>
-            <ul>
-              <li>Vacuum test stand and valve-body test plates</li>
-              <li>Regulated compressed air with rubber tip</li>
-              <li>Line-pressure gauge set</li>
-              <li>Digital multimeter</li>
-              <li>Bidirectional scan tool or suitable PCM data logger</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="callout">
-          A DIY builder without valve-body vacuum-testing and reaming equipment should send the
-          cleaned valve body and pump to a transmission specialist. New clutches cannot compensate
-          for worn AFL, pressure-regulator or TCC bores.
-        </div>
-      </section>
-
-      <section class="section" id="measurements">
-        <p class="eyebrow">07 · Build sheet</p>
-        <h2>Reference measurements and torque values</h2>
-        <p>
-          These are planning references. Confirm every value against the exact year-specific service
-          manual and the instructions supplied with the selected aftermarket components.
-        </p>
-
-        <h3>Reference clutch travel and endplay</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Measurement</th>
-                <th>Reference range</th>
-                <th>Actual</th>
-                <th>Pass</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Forward clutch travel, 300 mm unit</td><td>0.034–0.074 in</td><td>________</td><td>□</td></tr>
-              <tr><td>3-4 clutch travel</td><td>0.035–0.083 in</td><td>________</td><td>□</td></tr>
-              <tr><td>Reverse-input clutch travel</td><td>0.040–0.076 in</td><td>________</td><td>□</td></tr>
-              <tr><td>Total transmission endplay</td><td>0.005–0.036 in</td><td>________</td><td>□</td></tr>
-              <tr><td>Low/reverse clutch clearance</td><td>Per exact manual/kit</td><td>________</td><td>□</td></tr>
-              <tr><td>Servo travel</td><td>Per selected servo instructions</td><td>________</td><td>□</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>Internal torque planning reference</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Component</th>
-                <th>Planning reference</th>
-                <th>Verified manual value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Pump cover bolts</td><td>18 lb-ft</td><td>________</td></tr>
-              <tr><td>Pump-to-case bolts</td><td>18 lb-ft</td><td>________</td></tr>
-              <tr><td>Valve body / pressure switch / TCC fasteners</td><td>8 lb-ft</td><td>________</td></tr>
-              <tr><td>Manual detent spring bolt</td><td>15–20 lb-ft</td><td>________</td></tr>
-              <tr><td>Pan bolts</td><td>9 lb-ft</td><td>________</td></tr>
-              <tr><td>Removable bellhousing bolts</td><td>48–55 lb-ft</td><td>________</td></tr>
-              <tr><td>Extension-housing bolts</td><td>26 lb-ft</td><td>________</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="section" id="build-phases">
-        <p class="eyebrow">08 · Execution</p>
-        <h2>Detailed build phases</h2>
-
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 1</span>
-            <h3>Identify and baseline the core</h3>
-          </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase1-01"><span>Photograph and record the broadcast tag, case casting and bellhousing casting.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase1-02"><span>Record valve-body casting, separator-plate code and gasket configuration.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase1-03"><span>Confirm 300 mm input, pump, stator and converter family.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase1-04"><span>Confirm 2WD output shaft and extension housing.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase1-05"><span>Scan codes and capture commanded gear, actual ratio, TCC slip and temperature.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase1-06"><span>Perform baseline line-pressure test when the transmission remains operable.</span></label></li>
+              <li>Vacuum-test the AFL, shift, accumulator, TCC and abuse circuits applicable to the early valve body.</li>
+              <li>Inspect plate wear at checkball seats and verify all orifices.</li>
+              <li>Test solenoid resistance and function; inspect the harness for brittle insulation and contaminated connectors.</li>
+              <li>Keep the 1994 valve body, pump, plate, gaskets and harness as a matched control system.</li>
             </ul>
           </div>
-        </article>
+        </section>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 2</span>
-            <h3>Remove, drain and document contamination</h3>
+        <section class="chapter" id="subassemblies">
+          <div class="chapter-heading">
+            <div class="chapter-no">09</div>
+            <div>
+              <p class="kicker">Rebuild</p>
+              <h2>Assemble and test each module before it enters the case</h2>
+            </div>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase2-01"><span>Support vehicle and drivetrain safely; remove transmission with a strapped transmission jack.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase2-02"><span>Drain fluid through a clean screen and preserve representative debris.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase2-03"><span>Photograph pan, magnet and filter before cleaning.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase2-04"><span>Cut the filter open and classify friction, aluminum and ferrous material.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase2-05"><span>Mark the converter as contaminated and exclude it from reuse after a metal failure.</span></label></li>
-            </ul>
-          </div>
-        </article>
+          <p class="chapter-intro">
+            Each clutch drum is a finished, measured, air-tested component before installation.
+            “It spins” and “the kit predetermines it” are not acceptable final measurements.
+          </p>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 3</span>
-            <h3>Complete teardown and indexed storage</h3>
+          <div class="subassembly">
+            <h3>A. Low/reverse clutch and rear case</h3>
+            <ol class="steps">
+              <li><span>Install new low/reverse piston seals with the correct lip orientation.</span></li>
+              <li><span>Install piston, return springs and retainer with the proper compressor.</span></li>
+              <li><span>Install wave plate, steels and frictions in the exact 1994 sequence.</span></li>
+              <li><span>Select the backing plate as required and record clutch clearance.</span></li>
+              <li><span>Air-check application and release.</span></li>
+            </ol>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase3-01"><span>Measure available endplay before disassembly.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase3-02"><span>Remove pan, filter, harness, solenoids, pressure switch and valve body.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase3-03"><span>Photograph and template every checkball location before moving the case.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase3-04"><span>Remove servo, pump, input drum, reverse-input drum, band and geartrain.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase3-05"><span>Index every bearing and washer by location and orientation.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase3-06"><span>Keep valves and springs assigned to their original bores.</span></label></li>
-            </ul>
-          </div>
-        </article>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 4</span>
-            <h3>Clean and inspect the case</h3>
+          <div class="subassembly">
+            <h3>B. Rear geartrain</h3>
+            <ol class="steps">
+              <li><span>Install parking gear/output components and directional bearings correctly.</span></li>
+              <li><span>Install inspected lower planetary and one-way clutch components.</span></li>
+              <li><span>Install center support, anti-clunk spring and snap ring in the correct case positions.</span></li>
+              <li><span>Install sun gear and hardened reaction shell with the correct early thrust washer.</span></li>
+              <li><span>Install ring gear/reaction shaft, upper planetary and output shaft.</span></li>
+              <li><span>Verify free rotation and one-way clutch direction after each addition.</span></li>
+            </ol>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase4-01"><span>Hot-wash or solvent-clean the case; brush and blow out every hydraulic passage.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase4-02"><span>Inspect the pump bore, bellhousing area and case for cracks.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase4-03"><span>Inspect center-support lugs and low/reverse snap-ring grooves.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase4-04"><span>Inspect servo, accumulator and manual-shaft bores for wear.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase4-05"><span>Vacuum- or solvent-test the hidden third-accumulator checkball capsule.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase4-06"><span>Verify valve-body mating surface flatness and condition.</span></label></li>
-            </ul>
+
+          <div class="subassembly">
+            <h3>C. Input housing: overrun, forward and 3-4 clutches</h3>
+            <ol class="steps">
+              <li><span>Install updated long-lip forward and 3-4 seals with protectors.</span></li>
+              <li><span>Install forward-housing O-ring and all pistons, apply shells and return springs.</span></li>
+              <li><span>Assemble overrun clutch and forward sprag; verify correct freewheel direction.</span></li>
+              <li><span>Assemble forward clutch and measure travel/clearance.</span></li>
+              <li><span>Assemble the matched heavy-duty 3-4 clutch system, including all load-release springs.</span></li>
+              <li><span>Measure 3-4 travel around the circumference; check plate flatness and snap-ring seating.</span></li>
+              <li><span>Install and size the input-shaft Teflon sealing rings with dedicated tools.</span></li>
+              <li><span>Air-check overrun, forward and 3-4 circuits.</span></li>
+              <li><span>If the shaft joint was resealed, fluid-test around the joint and confirm zero bubbles.</span></li>
+            </ol>
           </div>
-        </article>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 5</span>
-            <h3>Rebuild and test the pump</h3>
+          <div class="notice blue">
+            <strong>Use from the video:</strong> seal protectors, simultaneous support of nested
+            pistons, sprag handling, loaded-drum air checks and the fluid/bubble check at the input
+            shaft. <strong>Improve on the video:</strong> use feeler gauges/dial measurement and a
+            written build sheet—not a dime or hand feel as the final acceptance test.
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase5-01"><span>Inspect rotor, vanes, rings, slide, pocket, crescent and pivot pin.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase5-02"><span>Inspect stator support, splines, bushings and sealing-ring surfaces.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase5-03"><span>Vacuum-test pressure-regulator, boost-valve and TCC circuits.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase5-04"><span>Install only the documented, matched pressure calibration.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase5-05"><span>Align pump halves with the alignment band.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase5-06"><span>Torque pump bolts evenly with a calibrated torque wrench.</span></label></li>
-            </ul>
+
+          <div class="subassembly">
+            <h3>D. Reverse-input drum</h3>
+            <ol class="steps">
+              <li><span>Install the new piston seals and piston with protectors.</span></li>
+              <li><span>Install spring retainer and the correct snap ring.</span></li>
+              <li><span>Install dish/wave component in the 1994-specified orientation.</span></li>
+              <li><span>Install steels and frictions, then record actual clutch travel/clearance.</span></li>
+              <li><span>Air-check the finished drum.</span></li>
+            </ol>
           </div>
-        </article>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 6</span>
-            <h3>Build the input drum</h3>
+          <div class="subassembly">
+            <h3>E. Pump</h3>
+            <ol class="steps">
+              <li><span>Rebuild the correct non-PWM pump with inspected or new wear components.</span></li>
+              <li><span>Install the selected pressure-regulator/boost components only as a complete documented calibration.</span></li>
+              <li><span>Lubricate and verify free valve and slide movement.</span></li>
+              <li><span>Align pump halves with the alignment band and guide bolts.</span></li>
+              <li><span>Torque evenly with a calibrated wrench.</span></li>
+              <li><span>Install new pump seal, gasket, sealing rings and selective washer as applicable.</span></li>
+            </ol>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase6-01"><span>Inspect shaft-to-drum press fit and 3-4 feed path for leakage or galling.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-02"><span>Reject a damaged drum; apply sealant only to the approved press-fit area when serviceable.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-03"><span>Install forward-housing O-ring and new molded pistons using lip protectors.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-04"><span>Assemble overrun clutch and verify forward sprag direction.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-05"><span>Assemble forward clutch and record travel/clearance.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-06"><span>Assemble 3-4 clutch with heavy-duty backing plates and full-thickness plates.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-07"><span>Install all 3-4 load-release springs.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-08"><span>Measure 3-4 travel around the circumference; do not rely on a dime alone.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-09"><span>Install and size the solid Teflon sealing rings with dedicated tools.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-10"><span>Air-check overrun, forward and 3-4 clutch circuits.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase6-11"><span>Fluid-test shaft-to-drum joint and confirm no bubbles.</span></label></li>
-            </ul>
+
+          <div class="subassembly">
+            <h3>F. Valve body and accumulators</h3>
+            <ol class="steps">
+              <li><span>Complete vacuum testing and bore repair before assembly.</span></li>
+              <li><span>Install the matched 1994 separator plate, case gasket and valve-body gasket.</span></li>
+              <li><span>Install checkballs from the 1994 map; never copy the later video’s count or positions.</span></li>
+              <li><span>Install accumulator pistons, seals and springs in the selected street calibration.</span></li>
+              <li><span>Do not block a passage unless the exact 1994 kit instructions require it.</span></li>
+            </ol>
           </div>
-        </article>
+        </section>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 7</span>
-            <h3>Build the reverse-input drum</h3>
+        <section class="chapter" id="final-assembly">
+          <div class="chapter-heading">
+            <div class="chapter-no">10</div>
+            <div>
+              <p class="kicker">Case assembly</p>
+              <h2>Install modules, set endplay and close the transmission</h2>
+            </div>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase7-01"><span>Inspect band surface for scoring, taper, heat checking and runout.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase7-02"><span>Install molded piston and return spring assembly with correct snap ring.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase7-03"><span>Install wave/Belleville plate in the exact specified orientation.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase7-04"><span>Install steels and frictions; measure clutch travel/clearance.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase7-05"><span>Air-check the completed reverse-input drum.</span></label></li>
-            </ul>
+          <p class="chapter-intro">
+            Final assembly is a sequence of verification gates. If a component does not seat under
+            hand pressure and controlled rotation, stop and find the interference.
+          </p>
+
+          <ol class="steps">
+            <li><span><strong>Install front drums.</strong> Rotate and lower the input/reverse-input assemblies until every spline is engaged and the drums sit at the correct depth.</span></li>
+            <li><span><strong>Install band.</strong> Confirm the band is around the correct drum and both anchor points are engaged.</span></li>
+            <li><span><strong>Install servo.</strong> Retain the street cushion spring, install new seals and measure servo travel/pin selection.</span></li>
+            <li><span><strong>Install pump.</strong> Use guide studs, correct gasket and seal; never pull a high pump into place with bolts.</span></li>
+            <li><span><strong>Set endplay.</strong> Torque pump-to-case bolts, measure total endplay with a dial indicator and change the selective washer if required.</span></li>
+            <li><span><strong>Install control system.</strong> Position checkballs, matched plate/gaskets, valve body, manual valve link, accumulators, solenoids, harness and pressure switch.</span></li>
+            <li><span><strong>Torque in sequence.</strong> Put every valve-body bolt in its correct hole and use an inch-pound torque wrench.</span></li>
+            <li><span><strong>Electrical audit.</strong> Confirm every connector, clip, eyelet and harness route.</span></li>
+            <li><span><strong>Filter and pan.</strong> Install a new filter seal, filter and clean pan only after the complete internal audit.</span></li>
+          </ol>
+
+          <h3>Bench-release checklist</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-key="final-01"><span>All clutch clearances/travel values recorded.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-02"><span>All clutch circuits air-checked after assembly.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-03"><span>Input-shaft joint passes leak test.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-04"><span>One-way clutch direction verified.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-05"><span>Geartrain rotates without unexplained drag or bind.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-06"><span>Band anchors and measured servo travel verified.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-07"><span>Total endplay measured and recorded.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-08"><span>Valve-body/pump vacuum-test results recorded.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-09"><span>Checkball, plate and gasket configuration independently verified.</span></label></li>
+            <li><label><input type="checkbox" data-key="final-10"><span>Solenoid/harness tests complete.</span></label></li>
+          </ul>
+        </section>
+
+        <section class="chapter" id="installation">
+          <div class="chapter-heading">
+            <div class="chapter-no">11</div>
+            <div>
+              <p class="kicker">Vehicle installation</p>
+              <h2>Converter, cooler circuit and installation</h2>
+            </div>
           </div>
-        </article>
+          <p class="chapter-intro">
+            A clean transmission can be destroyed immediately by a contaminated converter or cooler.
+            The installation phase is part of the rebuild—not an afterthought.
+          </p>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 8</span>
-            <h3>Assemble low/reverse and rear geartrain</h3>
+          <ol class="steps">
+            <li><span><strong>Converter.</strong> Install a new or properly remanufactured 298 mm non-PWM Roadmaster/LT1 converter.</span></li>
+            <li><span><strong>Full engagement.</strong> Rotate and push the converter until turbine splines, stator support and pump drive are fully engaged; measure depth from bellhousing face.</span></li>
+            <li><span><strong>Cooler circuit.</strong> Replace or professionally hot-flush/pulse-flush lines and cooler; replace components when cleanliness cannot be proven.</span></li>
+            <li><span><strong>Auxiliary cooling.</strong> Install a quality stacked-plate cooler suitable for street use and the local climate.</span></li>
+            <li><span><strong>Mate to engine.</strong> The transmission must seat against the LT1 under alignment and hand pressure. Never use bellhousing bolts to force it forward.</span></li>
+            <li><span><strong>Converter clearance.</strong> Verify correct converter-to-flexplate clearance before pulling the converter forward and installing the bolts.</span></li>
+            <li><span><strong>Connections.</strong> Install crossmember, mount, driveshaft, linkage, speed sensor, cooler lines and all original 1994 electrical connectors.</span></li>
+          </ol>
+
+          <div class="notice danger">
+            <strong>Do not install a 1995-up PWM converter or later internal harness.</strong>
+            The 1994 PCM and non-PWM hydraulic system must remain matched to the converter-clutch design.
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase8-01"><span>Install low/reverse piston, springs and clutch pack; record clearance.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase8-02"><span>Inspect lower and upper planetaries; record pinion endplay.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase8-03"><span>Install center support, anti-clunk spring and snap ring correctly.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase8-04"><span>Install new or inspected sun gear and hardened reaction shell.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase8-05"><span>Inspect reaction shaft, ring gear and output shaft splines.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase8-06"><span>Verify all thrust bearings and washers against the technical guide.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase8-07"><span>Confirm one-way clutch direction and free geartrain rotation.</span></label></li>
-            </ul>
+        </section>
+
+        <section class="chapter" id="commissioning">
+          <div class="chapter-heading">
+            <div class="chapter-no">12</div>
+            <div>
+              <p class="kicker">Commissioning</p>
+              <h2>Initial fill, pressure test and road test</h2>
+            </div>
           </div>
-        </article>
+          <p class="chapter-intro">
+            Test the transmission on stands or a lift before the first road drive. The goal is to
+            prove pump prime, cooler flow, pressure, engagement, shifting and TCC operation at low load.
+          </p>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 9</span>
-            <h3>Install drums, band and servo</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-key="test-01"><span>Initial fluid quantity added with vehicle level and transmission in Park.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-02"><span>Engine started and fluid added promptly as converter/circuits fill.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-03"><span>Pump, pan, cooler lines, extension housing and fittings checked for leaks.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-04"><span>Cooler flow verified before road operation.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-05"><span>All ranges cycled with brakes applied; Drive and Reverse engagement timed.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-06"><span>Stationary line pressure measured and compared with the 1994 chart.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-07"><span>Transmission temperature monitored.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-08"><span>Light-throttle 1-2, 2-3 and 3-4 shifts evaluated separately.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-09"><span>Non-PWM TCC apply and release confirmed without slip, shudder or harsh shock.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-10"><span>Fluid level rechecked at the specified operating temperature.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-11"><span>Leak inspection repeated after the first complete heat cycle.</span></label></li>
+            <li><label><input type="checkbox" data-key="test-12"><span>Wide-open-throttle operation deferred until normal pressure and shift behavior are proven.</span></label></li>
+          </ul>
+        </section>
+
+        <section class="chapter" id="specs">
+          <div class="chapter-heading">
+            <div class="chapter-no">13</div>
+            <div>
+              <p class="kicker">Recorded values</p>
+              <h2>Measurement and torque build sheet</h2>
+            </div>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase9-01"><span>Lower drum assemblies by rotation; do not force engagement.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase9-02"><span>Verify the drums and shell are fully seated before pump installation.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase9-03"><span>Install the wide 2-4 band and confirm both anchor points.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase9-04"><span>Inspect servo bore and assemble the selected servo with cushioning retained.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase9-05"><span>Measure servo travel and select the correct pin.</span></label></li>
-            </ul>
+          <p class="chapter-intro">
+            The ranges below are working references from the early 4L60-E service literature.
+            Verify them against the exact 1994 Roadmaster manual and the selected component instructions.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Measurement</th>
+                  <th>Working reference</th>
+                  <th>Actual</th>
+                  <th>Pass</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Forward clutch travel — 298 mm unit</td><td>0.030–0.069 in</td><td>____________</td><td>□</td></tr>
+                <tr><td>3-4 clutch travel</td><td>0.035–0.083 in</td><td>____________</td><td>□</td></tr>
+                <tr><td>Reverse-input clutch travel</td><td>0.040–0.076 in</td><td>____________</td><td>□</td></tr>
+                <tr><td>Low/reverse clutch clearance</td><td>1994 manual / selected pack</td><td>____________</td><td>□</td></tr>
+                <tr><td>Servo travel</td><td>Selected servo instructions</td><td>____________</td><td>□</td></tr>
+                <tr><td>Overall transmission endplay</td><td>0.005–0.036 in</td><td>____________</td><td>□</td></tr>
+                <tr><td>Lower planetary pinion endplay</td><td>1994 manual limit</td><td>____________</td><td>□</td></tr>
+                <tr><td>Upper planetary pinion endplay</td><td>1994 manual limit</td><td>____________</td><td>□</td></tr>
+              </tbody>
+            </table>
           </div>
-        </article>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 10</span>
-            <h3>Install pump and set endplay</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fastener group</th>
+                  <th>Working reference</th>
+                  <th>Verified 1994 value</th>
+                  <th>Initials</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Pump cover bolts</td><td>18 lb-ft</td><td>____________</td><td>______</td></tr>
+                <tr><td>Pump-to-case bolts</td><td>18 lb-ft</td><td>____________</td><td>______</td></tr>
+                <tr><td>Valve body / pressure switch / TCC fasteners</td><td>8 lb-ft</td><td>____________</td><td>______</td></tr>
+                <tr><td>Manual detent spring bolt</td><td>15–20 lb-ft</td><td>____________</td><td>______</td></tr>
+                <tr><td>Pan bolts</td><td>9 lb-ft</td><td>____________</td><td>______</td></tr>
+                <tr><td>Extension-housing bolts</td><td>26 lb-ft</td><td>____________</td><td>______</td></tr>
+                <tr><td>Converter-to-flexplate bolts</td><td>Verify 1994 LT1 manual</td><td>____________</td><td>______</td></tr>
+                <tr><td>Transmission-to-engine bolts</td><td>Verify 1994 LT1 manual</td><td>____________</td><td>______</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase10-01"><span>Install correct pump gasket, pump-to-case seal and selective washer.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase10-02"><span>Lower pump with guide studs; never pull it into place with bolts.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase10-03"><span>Install new pump-bolt O-rings and torque bolts in sequence.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase10-04"><span>Measure total transmission endplay with a dial indicator.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase10-05"><span>Change selective washer if necessary and record final endplay.</span></label></li>
-            </ul>
+
+          <div class="notice">
+            The technician’s guide lists the 4L60-E ratios as 3.059 first, 1.625 second,
+            1.000 third, 0.696 fourth and 2.294 reverse. It also identifies the 298&nbsp;mm
+            converter configuration and an approximate dry capacity of 11.2 quarts for that family.
           </div>
-        </article>
+        </section>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 11</span>
-            <h3>Install valve body and electronics</h3>
+        <section class="chapter" id="video">
+          <div class="chapter-heading">
+            <div class="chapter-no">14</div>
+            <div>
+              <p class="kicker">Visual reference</p>
+              <h2>2001 video cross-reference for the 1994 build</h2>
+            </div>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase11-01"><span>Confirm valve body, separator plate and gaskets are a compatible set.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-02"><span>Install case checkball arrangement from exact service information.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-03"><span>Install seven valve-body checkballs in verified locations.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-04"><span>Install plate filters/screens and correctly oriented CA/VB gaskets.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-05"><span>Install 1-2 and 3-4 accumulator components using the selected street calibration.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-06"><span>Engage manual valve and selector link correctly.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-07"><span>Install valve-body bolts in their exact locations; torque in prescribed sequence.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-08"><span>Install harness, EPC, TCC PWM, shift solenoids and pressure switch manifold.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-09"><span>Perform continuity, resistance and connector-retention checks.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase11-10"><span>Install filter and pan after a complete visual audit.</span></label></li>
-            </ul>
+          <p class="chapter-intro">
+            Watch the video for hand placement, sequence and visual recognition. Use the right column
+            to avoid carrying later-year components or calibrations into the 1994 transmission.
+          </p>
+
+          <div class="video-box no-print">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/tvJhbXA6MZY"
+              title="FSP Transmissions 4L60E rebuild reference"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
           </div>
-        </article>
 
-        <article class="phase">
-          <div class="phase-header">
-            <span class="phase-number">Phase 12</span>
-            <h3>Converter, cooler and installation preparation</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Useful visual procedure</th>
+                  <th>1994 Roadmaster instruction</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=0">0:00–2:00</a></td><td>Failure review: shell, pump, forward clutch, planetary</td><td>Use as damage-recognition training; inspect the same failure paths.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=120">2:00–8:15</a></td><td>Pistons, seal protectors and input drum</td><td>Use 1994 seal/piston package and updated long-lip seals.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=495">8:15–11:25</a></td><td>Overrun clutch and forward sprag</td><td>Verify early-part orientation and sprag direction in the guide/manual.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=685">11:25–13:15</a></td><td>Forward clutch loading</td><td>Measure the 298 mm unit’s forward clutch travel.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=797">13:17–15:40</a></td><td>3-4 clutch assembly</td><td>Use a matched early-drum clutch system; replace the dime with proper measurement.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=940">15:40–18:40</a></td><td>Reverse-input drum</td><td>Measure actual travel/clearance; confirm early component orientation.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=1145">19:05–25:40</a></td><td>Pump assembly and alignment band</td><td>Do not copy the 300 mm/PWM pump or pressure calibration; use 1994 non-PWM parts.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=1541">25:41–26:45</a></td><td>Drum air checks and shaft-joint bubble test</td><td>Adopt directly as mandatory quality gates.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=1605">26:45–35:15</a></td><td>Low/reverse, geartrain, shell and drums</td><td>Use early bearing/washer map and early hardened shell.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2118">35:18–37:55</a></td><td>Servo assembly</td><td>Retain cushioning; measure the 1994 servo system rather than assuming the later stack.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2275">37:55–40:40</a></td><td>Band and pump installation</td><td>Use 1994 pump/gasket and record total endplay.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2460">41:00–45:40</a></td><td>Plate, gaskets and accumulators</td><td>Do not copy 2001-up gaskets, TransGo plate or blocked passage.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2741">45:41–52:20</a></td><td>Valve-body installation and electronics</td><td>Use only for handling/bolt discipline; locations and components must be 1994-specific.</td></tr>
+                <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=3148">52:28–53:00</a></td><td>Different-year valve-body disclosure</td><td>Reinforces why supplier-documented compatibility is mandatory.</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="phase-body">
-            <ul class="checklist">
-              <li><label><input type="checkbox" data-key="phase12-01"><span>Install the matched 300 mm PWM converter and confirm full engagement depth.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase12-02"><span>Replace or professionally flush cooler lines.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase12-03"><span>Replace contaminated radiator cooler or radiator when cleanliness cannot be proven.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase12-04"><span>Install a quality stacked-plate auxiliary cooler.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase12-05"><span>Confirm converter-to-flexplate clearance before pulling converter forward.</span></label></li>
-              <li><label><input type="checkbox" data-key="phase12-06"><span>Never draw the transmission to the engine with bellhousing bolts.</span></label></li>
-            </ul>
+        </section>
+
+        <section class="chapter" id="diagrams">
+          <div class="chapter-heading">
+            <div class="chapter-no">15</div>
+            <div>
+              <p class="kicker">Your technical guide</p>
+              <h2>Core diagrams to keep open during the build</h2>
+            </div>
           </div>
-        </article>
-      </section>
+          <p class="chapter-intro">
+            These pages from your Roadmaster site are the working map for component purpose and location.
+            Click a diagram to open the full-size source image.
+          </p>
 
-      <section class="section" id="quality-gates">
-        <p class="eyebrow">09 · Quality control</p>
-        <h2>Bench-release gates</h2>
-        <p>
-          The pan should not be closed and the transmission should not be released for installation
-          until every gate below is complete.
-        </p>
+          <div class="figure-grid">
+            <figure>
+              <a href="https://jmaietta.github.io/roadmaster/images/4l60e/page-008.jpg">
+                <img loading="lazy" src="https://jmaietta.github.io/roadmaster/images/4l60e/page-008.jpg" alt="4L60-E transmission cutaway">
+              </a>
+              <figcaption>Transmission cutaway — use to orient the major assemblies before teardown and final stack-up.</figcaption>
+            </figure>
 
-        <div class="grid-2">
-          <article class="card">
-            <h3>Hydraulic integrity</h3>
-            <ul>
-              <li>Pump circuits vacuum-tested</li>
-              <li>Valve body vacuum-tested</li>
-              <li>Third-accumulator checkball tested</li>
-              <li>Input-drum feed joint leak-tested</li>
-              <li>All clutch circuits air-checked</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Mechanical integrity</h3>
-            <ul>
-              <li>One-way clutches verified</li>
-              <li>Geartrain rotates without unexplained bind</li>
-              <li>Band anchors and servo verified</li>
-              <li>All snap rings fully seated</li>
-              <li>Converter engagement depth measured</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Measurements</h3>
-            <ul>
-              <li>Every clutch clearance recorded</li>
-              <li>Servo travel recorded</li>
-              <li>Planetary wear/endplay recorded</li>
-              <li>Total transmission endplay recorded</li>
-              <li>Torque sheet completed</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Electrical and controls</h3>
-            <ul>
-              <li>Harness continuity confirmed</li>
-              <li>Solenoids tested</li>
-              <li>Pressure switch inspected</li>
-              <li>Manual valve movement confirmed</li>
-              <li>PCM calibration plan documented</li>
-            </ul>
-          </article>
-        </div>
-      </section>
+            <figure>
+              <a href="https://jmaietta.github.io/roadmaster/images/4l60e/page-016.jpg">
+                <img loading="lazy" src="https://jmaietta.github.io/roadmaster/images/4l60e/page-016.jpg" alt="4L60-E servo and 2-4 band diagram">
+              </a>
+              <figcaption>Servo and 2-4 band — shows second, third and fourth-gear apply/release relationships.</figcaption>
+            </figure>
 
-      <section class="section" id="installation">
-        <p class="eyebrow">10 · Commissioning</p>
-        <h2>Installation, controller setup and first test</h2>
+            <figure>
+              <a href="https://jmaietta.github.io/roadmaster/images/4l60e/page-033.jpg">
+                <img loading="lazy" src="https://jmaietta.github.io/roadmaster/images/4l60e/page-033.jpg" alt="4L60-E checkball locations and functions">
+              </a>
+              <figcaption>Checkball locations and functions — functional reference; confirm the exact 1994 plate/case arrangement.</figcaption>
+            </figure>
 
-        <h3>Roadmaster-specific controller considerations</h3>
-        <ul>
-          <li>Program the actual 2.91 final-drive ratio and rear tire diameter.</li>
-          <li>Match TCC strategy to the PWM converter and valve body.</li>
-          <li>Avoid commanding lockup at high load and very low engine speed.</li>
-          <li>Use progressive line-pressure tables rather than maximum pressure everywhere.</li>
-          <li>Set part-throttle and wide-open-throttle shift points to the actual engine combination.</li>
-          <li>Enable transmission-temperature protection and data logging.</li>
-        </ul>
+            <figure>
+              <a href="https://jmaietta.github.io/roadmaster/images/4l60e/page-093.jpg">
+                <img loading="lazy" src="https://jmaietta.github.io/roadmaster/images/4l60e/page-093.jpg" alt="4L60-E bushing bearing and washer locations">
+              </a>
+              <figcaption>Bushing, bearing and washer locations — keep open while indexing and restacking thrust components.</figcaption>
+            </figure>
 
-        <h3>Initial fill and test checklist</h3>
-        <ul class="checklist">
-          <li><label><input type="checkbox" data-key="test-01"><span>Add initial fluid quantity and start in Park.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-02"><span>Add fluid promptly as the converter and circuits fill.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-03"><span>Check pump, pan, cooler lines and extension housing for leaks.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-04"><span>Verify cooler flow before road operation.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-05"><span>Cycle all ranges with brakes applied and confirm Drive/Reverse engagement.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-06"><span>Perform stationary line-pressure test.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-07"><span>Monitor temperature, commanded gear, actual ratio and TCC slip.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-08"><span>Complete light-throttle 1-2, 2-3 and 3-4 shift evaluation.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-09"><span>Confirm controlled TCC apply and release.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-10"><span>Recheck fluid at the prescribed operating temperature.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-11"><span>Inspect for leaks after the first full heat cycle.</span></label></li>
-          <li><label><input type="checkbox" data-key="test-12"><span>Delay wide-open-throttle testing until normal pressure and shift operation are proven.</span></label></li>
-        </ul>
-      </section>
+            <figure>
+              <a href="https://jmaietta.github.io/roadmaster/images/4l60e/page-094.jpg">
+                <img loading="lazy" src="https://jmaietta.github.io/roadmaster/images/4l60e/page-094.jpg" alt="4L60-E seal locations">
+              </a>
+              <figcaption>Seal locations — cross-check every seal before closing each subassembly.</figcaption>
+            </figure>
 
-      <section class="section" id="video-index">
-        <p class="eyebrow">11 · Visual reference</p>
-        <h2>FSP video and timestamp index</h2>
+            <figure>
+              <a href="https://jmaietta.github.io/roadmaster/images/4l60e/page-103.jpg">
+                <img loading="lazy" src="https://jmaietta.github.io/roadmaster/images/4l60e/page-103.jpg" alt="4L60-E basic specifications">
+              </a>
+              <figcaption>Basic specifications — ratios, converter families, capacity and general transmission limits.</figcaption>
+            </figure>
+          </div>
+        </section>
 
-        <div class="video-frame no-print">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/tvJhbXA6MZY"
-            title="FSP Transmissions 2001 4L60E rebuild video"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
+        <section class="chapter" id="sources">
+          <div class="chapter-heading">
+            <div class="chapter-no">16</div>
+            <div>
+              <p class="kicker">Reference hierarchy</p>
+              <h2>Sources and final verification</h2>
+            </div>
+          </div>
 
-        <div class="table-wrap" style="margin-top:18px">
-          <table>
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Video procedure</th>
-                <th>How to use it</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=0">0:00–2:00</a></td><td>Failure review and replacement parts</td><td>Damage-identification reference</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=120">2:00–8:15</a></td><td>Molded pistons and input drum</td><td>Visual seal and piston sequence; verify with manual</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=495">8:15–11:25</a></td><td>Overrun clutch and forward sprag</td><td>Verify sprag direction independently</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=685">11:25–13:15</a></td><td>Forward clutch</td><td>Measure clearance; do not rely on free movement alone</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=797">13:17–15:40</a></td><td>Seven-disc 3-4 clutch</td><td>Do not use the dime as the only measurement</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=940">15:40–18:40</a></td><td>Reverse-input drum</td><td>Measure pack travel/clearance</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=1145">19:05–25:40</a></td><td>13-vane pump</td><td>Use alignment procedure; apply torque wrench</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=1541">25:41–26:45</a></td><td>Drum air checks</td><td>Adopt as a mandatory quality gate</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=1605">26:45–35:15</a></td><td>Rear geartrain and drums</td><td>Verify bearing and snap-ring orientation</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2118">35:18–37:55</a></td><td>Servo</td><td>Retain cushion spring and measure travel</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2275">37:55–40:40</a></td><td>Band and pump installation</td><td>Verify anchors and measure endplay</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2460">41:00–45:40</a></td><td>Plate, gaskets and accumulators</td><td>Do not copy blocked passage without kit instructions</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=2741">45:41–52:20</a></td><td>Valve body and electronics</td><td>Useful visual bolt/checkball reference for this build</td></tr>
-              <tr><td><a href="https://youtu.be/tvJhbXA6MZY?t=3148">52:28–53:00</a></td><td>Different-year valve-body disclosure</td><td>Use only with supplier-documented compatibility</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+          <ol>
+            <li><strong><a href="https://jmaietta.github.io/roadmaster/4l60e.html">4L60-E Hydra-Matic Technician’s Guide</a></strong> — your site; component function, power flow, hydraulic circuits, lubrication, locations and illustrated parts.</li>
+            <li><strong>1994 Buick Roadmaster Estate Wagon factory service manual</strong> — controlling authority for removal, assembly, clearances, selective parts, line pressure and torque.</li>
+            <li><strong>1994 GM service bulletin: garage-shift engagement package</strong> — identifies the early-production plate/package compatibility issue.</li>
+            <li><strong>1994 GM service bulletin: long-lip 3-4 and forward clutch seals</strong> — updated sealing design for the 1994 4L60-E.</li>
+            <li><strong><a href="https://www.youtube.com/watch?v=tvJhbXA6MZY">FSP Transmissions 2001 4L60-E build</a></strong> — visual procedure reference only.</li>
+            <li><strong>Sonnax/TransGo instructions for the exact purchased components</strong> — controlling authority for any bore repair, plate drilling, spring, boost valve, servo or clutch-system modification.</li>
+          </ol>
 
-      <section class="section" id="sources">
-        <p class="eyebrow">12 · Technical references</p>
-        <h2>Primary source set</h2>
-        <ul class="source-list">
-          <li>
-            <strong>Roadmaster 4L60E technical guide</strong>
-            Hydraulic theory, power flow, seals, bearings, bushings and parts identification.<br>
-            <a href="https://jmaietta.github.io/roadmaster/4l60e.html">jmaietta.github.io/roadmaster/4l60e.html</a>
-          </li>
-          <li>
-            <strong>FSP Transmissions — 2001 4L60E rebuild</strong>
-            Visual build sequence and source transmission failure analysis.<br>
-            <a href="https://www.youtube.com/watch?v=tvJhbXA6MZY">youtube.com/watch?v=tvJhbXA6MZY</a>
-          </li>
-          <li>
-            <strong>ATSG / GM year-specific overhaul information</strong>
-            Controlling source for exact clearances, selective components, torque values and update compatibility.
-          </li>
-          <li>
-            <strong>Sonnax 4L60E technical resources</strong>
-            Hydraulic wear diagnosis, vacuum testing, 3-4 clutch durability, servo systems and heavy-duty build guidance.<br>
-            <a href="https://www.sonnax.com/tech_resources">sonnax.com/tech_resources</a>
-          </li>
-          <li>
-            <strong>TransGo installation instructions</strong>
-            Controlling source for any separator-plate drilling, boost-valve, accumulator or shift-calibration modification.<br>
-            <a href="https://transgo.com/">transgo.com</a>
-          </li>
-        </ul>
+          <div class="notice danger">
+            <strong>Final rule:</strong> where the video, generic kit instructions and 1994 Roadmaster
+            service information differ, the 1994 application-specific information controls unless the
+            aftermarket supplier documents a complete, compatible conversion.
+          </div>
+        </section>
+      </main>
+    </div>
 
-        <div class="callout danger">
-          <strong>Safety and liability:</strong> Automatic transmission assembly requires heavy
-          lifting, high spring loads, hydraulic testing and exact component compatibility. Verify
-          every specification against the service literature for the actual transmission before
-          assembly or installation.
-        </div>
-      </section>
-    </main>
+    <footer class="footer">
+      1994 Buick Roadmaster Estate Wagon · LT1 / 4L60-E (RPO M30) ·
+      Checklist and project-record entries are stored locally in the browser.
+    </footer>
   </div>
-
-  <footer class="footer">
-    <p>
-      Roadmaster 4L60E Transmission Build Plan · Static GitHub Pages document ·
-      Checklist state is stored only in the current browser.
-    </p>
-  </footer>
 
   <script>
     (() => {
-      const storagePrefix = "roadmaster-4l60e:";
-      const checks = [...document.querySelectorAll('input[type="checkbox"][data-key]')];
+      const prefix = "roadmaster-1994-4l60e:";
+      const checkboxes = [...document.querySelectorAll('input[type="checkbox"][data-key]')];
+      const records = [...document.querySelectorAll('[data-record]')];
       const progressBar = document.getElementById("progress-bar");
       const progressText = document.getElementById("progress-text");
 
-      const updateProgress = () => {
-        const completed = checks.filter(box => box.checked).length;
-        const percent = checks.length ? Math.round((completed / checks.length) * 100) : 0;
+      function updateProgress() {
+        const complete = checkboxes.filter(box => box.checked).length;
+        const percent = checkboxes.length ? Math.round((complete / checkboxes.length) * 100) : 0;
         progressBar.style.width = percent + "%";
         progressText.textContent = percent + "%";
-      };
+      }
 
-      checks.forEach(box => {
-        box.checked = localStorage.getItem(storagePrefix + box.dataset.key) === "1";
+      checkboxes.forEach(box => {
+        box.checked = localStorage.getItem(prefix + "check:" + box.dataset.key) === "1";
         box.addEventListener("change", () => {
-          localStorage.setItem(storagePrefix + box.dataset.key, box.checked ? "1" : "0");
+          localStorage.setItem(prefix + "check:" + box.dataset.key, box.checked ? "1" : "0");
           updateProgress();
         });
       });
 
+      records.forEach(field => {
+        const key = prefix + "record:" + field.dataset.record;
+        field.value = localStorage.getItem(key) || "";
+        field.addEventListener("input", () => localStorage.setItem(key, field.value));
+      });
+
+      document.getElementById("print-plan").addEventListener("click", () => window.print());
+
       document.getElementById("reset-progress").addEventListener("click", () => {
-        if (!confirm("Clear all saved checklist progress?")) return;
-        checks.forEach(box => {
+        if (!confirm("Clear all saved checklist progress? Project record fields will be retained.")) return;
+        checkboxes.forEach(box => {
           box.checked = false;
-          localStorage.removeItem(storagePrefix + box.dataset.key);
+          localStorage.removeItem(prefix + "check:" + box.dataset.key);
         });
         updateProgress();
       });
-
-      document.getElementById("print-page").addEventListener("click", () => window.print());
 
       updateProgress();
     })();
   </script>
 </body>
 </html>
-'''
-
-out = Path("/mnt/data/index.html")
-out.write_text(html, encoding="utf-8")
-print(f"Created {out} ({out.stat().st_size:,} bytes)")
