@@ -1,0 +1,17 @@
+*{box-sizing:border-box}
+html,body{width:1200px;height:630px;margin:0;overflow:hidden}
+body{background:#101010;font-family:Inter,Arial,"Segoe UI",sans-serif}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;background:#101010;color:#fff}
+.card::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,#101010 0%,#101010 36%,rgba(16,16,16,.92) 48%,rgba(16,16,16,.28) 78%,rgba(16,16,16,.06) 100%)}
+.card::after{content:"";position:absolute;inset:0;z-index:4;border:12px solid #101010;box-shadow:inset 0 0 0 1px #3a3a3a;pointer-events:none}
+.art{position:absolute;top:0;right:-6px;width:790px;height:630px;background:#595959 url("hero-transmission.jpg") center/contain no-repeat;background-blend-mode:multiply;filter:grayscale(1) contrast(1.14);opacity:.9}
+.content{position:relative;z-index:3;width:780px;height:100%;padding:48px 60px;display:flex;flex-direction:column;align-items:flex-start}
+.brand{display:flex;align-items:center;gap:14px;color:#d7d7d7;font-size:16px;letter-spacing:.13em}
+.brand span{width:50px;height:50px;display:grid;place-items:center;border:1px solid #ef5a62;border-radius:13px;background:#c3262f;color:#fff;font-size:17px;font-weight:900;letter-spacing:.04em}
+.brand strong{font-size:15px}
+.kicker{margin:68px 0 12px;color:#ec3944;font-size:15px;font-weight:900;letter-spacing:.16em}
+h1{margin:0;font-size:82px;font-weight:800;letter-spacing:-.055em;line-height:.88}
+h1 em{color:#cacaca;font-style:normal}
+.summary{margin:27px 0 0;color:#d0d0d0;font-size:21px;line-height:1.42}
+.specs{margin-top:auto;display:flex;gap:10px}
+.specs span{padding:9px 13px;border:1px solid #4a4a4a;border-radius:99px;background:#1c1c1c;color:#d6d6d6;font-size:11px;font-weight:800;letter-spacing:.09em}
