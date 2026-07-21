@@ -18,6 +18,19 @@
   const nextLink = document.getElementById("next-chapter");
   const currentLabel = document.getElementById("current-chapter");
 
+  // Turn desktop table headings into persistent labels for the mobile card view.
+  document.querySelectorAll(".table-wrap table").forEach((table) => {
+    const labels = [...table.querySelectorAll("thead th")].map((heading) => heading.textContent.trim());
+    table.querySelectorAll("tbody tr").forEach((row) => {
+      let column = 0;
+      [...row.cells].forEach((cell) => {
+        const span = Number(cell.colSpan) || 1;
+        cell.dataset.label = labels.slice(column, column + span).join(" / ") || "Detail";
+        column += span;
+      });
+    });
+  });
+
   function safeGet(key) {
     try { return localStorage.getItem(key); } catch { return null; }
   }
